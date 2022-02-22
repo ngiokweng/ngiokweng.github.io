@@ -1,0 +1,13 @@
+/* 各頁面的頂部 */
+#page-header{
+    background-color: rgba(0, 0, 0, 0);
+}
+/* 各頁面的底部 */
+#footer{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 各個卡片 */
+.cardHover, .layout > div:first-child:not(.recent-posts), #recent-posts > .recent-post-item, #aside-content .card-widget, .layout > .recent-posts .pagination > *:not(.space) {
+    background: rgba(255,255,255,0.8);
+}
