@@ -20,7 +20,6 @@ div#body-wrap {
 }
 
 /*評價區域*/
-.gitalk-container .gt-container .gt-comment-admin .gt-comment-content{
+.gt-container .gt-comment-admin .gt-comment-content{
     border-radius: 10px;
-    background-color: rgba(255,171,49,0.6);
 }
