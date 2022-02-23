@@ -18,3 +18,9 @@ div#body-wrap {
     background-size: cover;
     background-attachment: fixed;
 }
+
+/*評價塊*/
+.gt-container .gt-comment-admin .gt-comment-content{
+    border-radius: 10px;
+    background-color: rgba(255,171,49,0.6);
+}
