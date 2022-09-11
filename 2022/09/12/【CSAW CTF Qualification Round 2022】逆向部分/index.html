@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【CSAW CTF Qualification Round 2022】逆向---部分WriteUp | NgIokWeng's Blog</title><meta name="keywords" content="CTF,CASW,逆向,WriteUp"><meta name="author" content="NgIokWeng"><meta name="copyright" content="NgIokWeng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CSAW CTF Qualification Round 2022 逆向部分WriteUp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CSAW CTF Qualification Round 2022】逆向---部分WriteUp">
+<meta property="og:url" content="https://ngiokweng.github.io/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/index.html">
+<meta property="og:site_name" content="NgIokWeng&#39;s Blog">
+<meta property="og:description" content="CSAW CTF Qualification Round 2022 逆向部分WriteUp">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://ngiokweng.github.io/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled1.png">
+<meta property="article:published_time" content="2022-09-11T16:00:30.000Z">
+<meta property="article:modified_time" content="2022-09-11T15:25:31.818Z">
+<meta property="article:author" content="NgIokWeng">
+<meta property="article:tag" content="Reverse">
+<meta property="article:tag" content="WriteUp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ngiokweng.github.io/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled1.png"><link rel="shortcut icon" href="/myImg/blogIcon.png"><link rel="canonical" href="https://ngiokweng.github.io/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="google-site-verification" content="iO5LJpaf7bluC9CxlRdPhowI-XL-OzJ-X6ixOkO3cuk"/><meta name="baidu-site-verification" content="code-ZZyU1mBcxX"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【CSAW CTF Qualification Round 2022】逆向---部分WriteUp',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-11 23:25:31'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/myCustom.css"><meta name="generator" content="Hexo 5.4.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">載入中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/myImg/blogIcon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">5</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">2</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled1.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">NgIokWeng's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【CSAW CTF Qualification Round 2022】逆向---部分WriteUp</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2022-09-11T16:00:30.000Z" title="發表於 2022-09-12 00:00:30">2022-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2022-09-11T15:25:31.818Z" title="更新於 2022-09-11 23:25:31">2022-09-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/">CTF</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【CSAW CTF Qualification Round 2022】逆向---部分WriteUp"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Anya-Gacha"><a href="#Anya-Gacha" class="headerlink" title="Anya Gacha"></a>Anya Gacha</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>打開文件夾，發現是Unity遊戲</p>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled.png" alt="Untitled"></p>
+<ul>
+<li>先打開遊戲看看是在干什麼</li>
+<li>大概是一個抽卡遊戲，左上是金錢( 每次-10 )，按左下按鈕開始抽取</li>
+</ul>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled1.png" alt="Untitled"></p>
+<ul>
+<li>逆Unity遊戲通常可直接找到它的<code>Assembly-CSharp.dll</code>文件( 在<code>\AnyaGacha_Data\Managed</code>目錄下 )，將其拉入<code>dnspy</code>進行分析( 32位 )</li>
+<li>在開始時對一些數據進行了初始化，<strong>這裡其中一個數據用了隨機數</strong></li>
+</ul>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled2.png" alt="Untitled"></p>
+<ul>
+<li>找到按下【抽卡】按鈕所調用的函數</li>
+<li>這裡首先判斷【金錢】是否&gt;10，若是才能繼續</li>
+<li>後面再對一些數據進行處理，然後調用<code>this.Upload()</code></li>
+</ul>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled3.png" alt="Untitled"></p>
+<ul>
+<li>進入<code>this.Upload()</code>，看到它是通過發送網路請求來驗證</li>
+<li>但我看不懂要怎樣才能走到<code>this.succeed(text)</code>，而上面有提到一開始使用了隨機數來初始化數據，因此我猜測這可能與真的抽卡遊戲一樣，是概率問題</li>
+<li>所以我的破解思路：不斷調用<code>this.Upload()</code>，直到成功為至</li>
+</ul>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled4.png" alt="Untitled"></p>
+<h3 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h3><p>在dnspy中，<code>右鍵</code>→<code>Edit Method</code>，修改<code>wish</code>函數</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">wish</span>()</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">int</span> num = <span class="keyword">this</span>.unmask_value(<span class="keyword">this</span>.<span class="keyword">value</span>);</span><br><span class="line">		<span class="comment">//...刪了一些代碼</span></span><br><span class="line">		<span class="keyword">this</span>.<span class="keyword">value</span> = <span class="keyword">this</span>.mask_value(num);</span><br><span class="line">		<span class="keyword">this</span>.counter = <span class="keyword">this</span>.mySHA256.ComputeHash(<span class="keyword">this</span>.counter);</span><br><span class="line">		<span class="keyword">this</span>.loading.SetActive(<span class="literal">true</span>);</span><br><span class="line">		<span class="keyword">base</span>.StartCoroutine(<span class="keyword">this</span>.Upload());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同樣方法修改<code>Upload</code>函數</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> IEnumerator <span class="title">Upload</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">	WWWForm wwwform = <span class="keyword">new</span> WWWForm();</span><br><span class="line">	<span class="built_in">string</span> str = Convert.ToBase64String(<span class="keyword">this</span>.counter);</span><br><span class="line">	wwwform.AddField(<span class="string">&quot;data&quot;</span>, str);</span><br><span class="line">	UnityWebRequest www = UnityWebRequest.Post(<span class="keyword">this</span>.server, wwwform);</span><br><span class="line">	Debug.Log(<span class="string">&quot;Posted: &quot;</span> + str);</span><br><span class="line">	<span class="keyword">yield</span> <span class="keyword">return</span> www.SendWebRequest();</span><br><span class="line">	<span class="keyword">if</span> (www.result != UnityWebRequest.Result.Success)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">this</span>.wish(); <span class="comment">//修改的地方</span></span><br><span class="line">		Debug.Log(www.error);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">this</span>.loading.SetActive(<span class="literal">false</span>);</span><br><span class="line">		<span class="built_in">string</span> text = www.downloadHandler.text;</span><br><span class="line">		<span class="keyword">if</span> (text == <span class="string">&quot;&quot;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">this</span>.wish();  <span class="comment">//修改的地方</span></span><br><span class="line">			<span class="keyword">this</span>.fail();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">this</span>.succeed(text);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">yield</span> <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>backfrom</code>這是按【返回鍵】後會調用的函數</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">backfrom</span>(<span class="params">GameObject g</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	g.SetActive(<span class="literal">false</span>);</span><br><span class="line">	<span class="keyword">this</span>.mainpage.SetActive(<span class="literal">true</span>);</span><br><span class="line">	<span class="keyword">this</span>.wish(); <span class="comment">//修改的地方</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然後保存，方法：<code>File→Save Module</code></li>
+<li>之後打開遊戲，按【make a wish】之後，狂按右上的【back】</li>
+<li>理論上按下【make a wish】之後，慢慢等就會自動出flag，但不知為何出不了( 等得不夠久？ )，但只要按上述那樣改掉<code>backfrom</code>函數，<strong>然後狂按【back】就很快會出flag</strong></li>
+</ul>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled5.png" alt="Untitled"></p>
+<h2 id="Game"><a href="#Game" class="headerlink" title="Game"></a>Game</h2><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>題目描述如下圖所示：</p>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled6.png" alt="Untitled"></p>
+<ul>
+<li>先拉入IDA，去<code>main</code>函數看看</li>
+<li>看不出什麼，再繼續進入<code>level_gen()</code></li>
+</ul>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled7.png" alt="Untitled"></p>
+<ul>
+<li>要求用戶輸入1、2、3，分別對應左、中、右三條路</li>
+<li>然後之後會調用<code>level_next</code>，繼續跟入去</li>
+</ul>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled8.png" alt="Untitled"></p>
+<ul>
+<li>可以看出共有3個結果，分別是<strong>【繼續3選1】</strong>、<strong>【到達某個出口】</strong>、<strong>【到達需要password的地方】</strong></li>
+<li>在需要輸入password的地方輸入password後，會與<code>fnv_1a_32</code>函數的返回值進行對比，若一致就會輸出某些東西，推測與flag有關</li>
+</ul>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled9.png" alt="Untitled"></p>
+<h3 id="解題過程"><a href="#解題過程" class="headerlink" title="解題過程"></a>解題過程</h3><p>記錄一下<strong>當時在做題時</strong>的一些<strong>經歷</strong></p>
+<ol>
+<li>看到這樣類似走迷宮的題，本來打算先將【地圖】dump出來再分析，但試著試著突然想起題目給了個<code>nc rev.chal.csaw.io 5003</code>，代表他將數據放在了服務器上，若我在本地上直接動調會失去【地圖】數據( <del>然後我就放棄了</del> )</li>
+<li>不知道如何將服務器上的數據dump下來，之後我想了一想，<strong>發現以我的水平，好像只能嘗試將【地圖】手動爆破出來</strong></li>
+</ol>
+<p><strong>手動爆破的地圖如下圖所示：</strong></p>
+<ol>
+<li>最底下是<strong>超始位置</strong>，左、中、右3格對應1、2、3</li>
+<li>黃圈<code>P</code>代表要<strong>輸入密碼</strong>的地方( 上方<strong>有橙色勾</strong>的是不重複的地方，其他沒有<strong>橙色勾</strong>的黃圈<code>P</code>會與其中一個<strong>有橙色勾</strong>的地方重複 )</li>
+<li>綠色<code>w</code>是出口( 沒有什麼用 )</li>
+<li>普通白色圈代表繼續【3選1】</li>
+<li>黑色<code>x</code>代表死路</li>
+</ol>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled10.png" alt="Untitled"></p>
+<ul>
+<li>現在要先找出所有密碼。去到驗證密碼的地方分析</li>
+<li><code>v11</code>的大小是50字節，但<code>qmemcpy</code>卻只複製了<code>”cook”</code>4個字節，明顯有古怪</li>
+<li>雙擊<code>”cook”</code>，發現其下還有東西，且正好可以<strong>每10個字節1組，分成5組</strong></li>
+<li>而由<code>fnv_1a_32(&amp;v11[10 * v8]) == pass</code>也可以看出<code>fnv_1a_32</code>函數也是<strong>每10個字節1組</strong>進行處理</li>
+</ul>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled11.png" alt="Untitled"></p>
+<p><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled12.png" alt="Untitled"></p>
+<p>編寫腳本</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">__int64 __fastcall <span class="title">fnv_1a_32</span><span class="params">(<span class="type">unsigned</span> __int8* a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	__int64 result; <span class="comment">// rax</span></span><br><span class="line">	<span class="type">int</span> v2; <span class="comment">// edx</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (result = <span class="number">2166136261LL</span>; ; result = <span class="number">16777619</span> * (v2 ^ (<span class="type">unsigned</span> <span class="type">int</span>)result))</span><br><span class="line">	&#123;</span><br><span class="line">		v2 = *a1;</span><br><span class="line">		<span class="keyword">if</span> (!(BYTE)v2)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		++a1;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">char</span> aCook[] =</span><br><span class="line">	&#123;</span><br><span class="line">	  <span class="number">0x63</span>, <span class="number">0x6F</span>, <span class="number">0x6F</span>, <span class="number">0x6B</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">	  <span class="number">0x66</span>, <span class="number">0x6C</span>, <span class="number">0x61</span>, <span class="number">0x77</span>, <span class="number">0x65</span>, <span class="number">0x64</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">	  <span class="number">0x67</span>, <span class="number">0x72</span>, <span class="number">0x61</span>, <span class="number">0x76</span>, <span class="number">0x65</span>, <span class="number">0x6C</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">	  <span class="number">0x6B</span>, <span class="number">0x69</span>, <span class="number">0x6E</span>, <span class="number">0x67</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">	  <span class="number">0x64</span>, <span class="number">0x65</span>, <span class="number">0x63</span>, <span class="number">0x69</span>, <span class="number">0x73</span>, <span class="number">0x69</span>, <span class="number">0x76</span>, <span class="number">0x65</span>, <span class="number">0x00</span>, <span class="number">0x00</span></span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">50</span>; i += <span class="number">10</span>) &#123;</span><br><span class="line">		cout &lt;&lt; (<span class="built_in">fnv_1a_32</span>(&amp;aCook[i])) &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 結果：</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">4013828393</span></span><br><span class="line"><span class="comment">1118844294</span></span><br><span class="line"><span class="comment">3000956154</span></span><br><span class="line"><span class="comment">3658736598</span></span><br><span class="line"><span class="comment">1688072995</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>由於不知道哪個密碼對應哪條路，因此只能逐一嘗試，<strong>最終經過無數次的嘗試得出</strong>：</p>
+<ol>
+<li><code>11</code>這條路徑的密碼是<code>4013828393</code>，輸出結果為：<code>flag&#123;e@5+er_</code></li>
+<li><code>1313</code>這條路徑的密碼是<code>3000956154</code>，輸出結果為：<code>p@yw@115_i5_</code></li>
+<li><code>131221</code>這條路徑的密碼是<code>4013828393</code>，輸出結果為：<code>+he_dum6e5+_</code></li>
+<li><code>1312221</code>這條路徑的密碼是<code>1688072995</code>，輸出結果為：<code>ide@_ever!!&#125;</code></li>
+<li><code>222</code>這條路徑的密碼是<code>1118844294</code>，輸出結果為：<code>e995_6ehind_</code></li>
+</ol>
+<p>將路徑<strong>由小到大排列</strong>得出flag為：<code>flag&#123;e@5+er_e995_6ehind_p@yw@115_i5_+he_dum6e5+_ide@_ever!!&#125;</code></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">NgIokWeng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章連結: </span><span class="post-copyright-info"><a href="https://ngiokweng.github.io/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/">https://ngiokweng.github.io/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版權聲明: </span><span class="post-copyright-info">本部落格所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 許可協議。轉載請註明來自 <a href="https://ngiokweng.github.io" target="_blank">NgIokWeng's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Reverse/">Reverse</a><a class="post-meta__tags" href="/tags/WriteUp/">WriteUp</a></div><div class="post_share"><div class="social-share" data-image="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/"><img class="next-cover" src="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/Untitled1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【FlareOn2】YUSoMeta WriteUp</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相關推薦</span></div><div class="relatedPosts-list"><div><a href="/2022/02/23/ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020-usualCrypt-WriteUp/" title="ACTF新生赛2020-usualCrypt WriteUp"><img class="cover" src="/2022/02/23/ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020-usualCrypt-WriteUp/hack.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-23</div><div class="title">ACTF新生赛2020-usualCrypt WriteUp</div></div></a></div><div><a href="/2022/04/10/%E3%80%90FlareOn1%E3%80%91Bob-Doge-WriteUp/" title="【FlareOn1】Bob Doge WriteUp"><img class="cover" src="/2022/04/10/%E3%80%90FlareOn1%E3%80%91Bob-Doge-WriteUp/3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-10</div><div class="title">【FlareOn1】Bob Doge WriteUp</div></div></a></div><div><a href="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/" title="【FlareOn2】YUSoMeta WriteUp"><img class="cover" src="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/Untitled1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-28</div><div class="title">【FlareOn2】YUSoMeta WriteUp</div></div></a></div><div><a href="/2022/02/26/%E3%80%90CTF%E3%80%91%E4%B8%80%E9%81%93%E7%B0%A1%E5%96%AE%E7%9A%84%E8%8A%B1%E6%8C%87%E4%BB%A4/" title="【CTF】一道簡單的花指令"><img class="cover" src="/2022/02/26/%E3%80%90CTF%E3%80%91%E4%B8%80%E9%81%93%E7%B0%A1%E5%96%AE%E7%9A%84%E8%8A%B1%E6%8C%87%E4%BB%A4/2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-26</div><div class="title">【CTF】一道簡單的花指令</div></div></a></div><div><a href="/2022/08/15/%E3%80%90FlareOn4%E3%80%91greek_to_me/" title="【FlareOn4】greek_to_me WriteUp"><img class="cover" src="/2022/08/15/%E3%80%90FlareOn4%E3%80%91greek_to_me/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-15</div><div class="title">【FlareOn4】greek_to_me WriteUp</div></div></a></div><div><a href="/2022/02/26/%E3%80%90HDCTF2019%E3%80%91Maze-WriteUp/" title="【HDCTF2019】Maze WriteUp"><img class="cover" src="/2022/02/26/%E3%80%90HDCTF2019%E3%80%91Maze-WriteUp/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-26</div><div class="title">【HDCTF2019】Maze WriteUp</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/myImg/blogIcon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">NgIokWeng</div><div class="author-info__description">如果你對目前擁有的一切覺得不滿，等到你擁有更多時，也不見得會快樂</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">5</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">2</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ngiokweng/"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Anya-Gacha"><span class="toc-number">1.</span> <span class="toc-text">Anya Gacha</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">1.1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="toc-number">1.2.</span> <span class="toc-text">暴力破解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Game"><span class="toc-number">2.</span> <span class="toc-text">Game</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90-1"><span class="toc-number">2.1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A1%8C%E9%81%8E%E7%A8%8B"><span class="toc-number">2.2.</span> <span class="toc-text">解題過程</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/" title="【CSAW CTF Qualification Round 2022】逆向---部分WriteUp"><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【CSAW CTF Qualification Round 2022】逆向---部分WriteUp"/></a><div class="content"><a class="title" href="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/" title="【CSAW CTF Qualification Round 2022】逆向---部分WriteUp">【CSAW CTF Qualification Round 2022】逆向---部分WriteUp</a><time datetime="2022-09-11T16:00:30.000Z" title="發表於 2022-09-12 00:00:30">2022-09-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/" title="【FlareOn2】YUSoMeta WriteUp"><img src="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/Untitled1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【FlareOn2】YUSoMeta WriteUp"/></a><div class="content"><a class="title" href="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/" title="【FlareOn2】YUSoMeta WriteUp">【FlareOn2】YUSoMeta WriteUp</a><time datetime="2022-08-28T13:18:30.000Z" title="發表於 2022-08-28 21:18:30">2022-08-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/27/OD%E6%8F%92%E4%BB%B6%E2%80%94%E2%80%94VS2019%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E8%A8%AD%E7%BD%AE%20fee51e09422b43e4a51413b61ca1d9d9/" title="OD插件——VS2019開發環境設置"><img src="/2022/08/27/OD%E6%8F%92%E4%BB%B6%E2%80%94%E2%80%94VS2019%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E8%A8%AD%E7%BD%AE%20fee51e09422b43e4a51413b61ca1d9d9/a.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OD插件——VS2019開發環境設置"/></a><div class="content"><a class="title" href="/2022/08/27/OD%E6%8F%92%E4%BB%B6%E2%80%94%E2%80%94VS2019%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E8%A8%AD%E7%BD%AE%20fee51e09422b43e4a51413b61ca1d9d9/" title="OD插件——VS2019開發環境設置">OD插件——VS2019開發環境設置</a><time datetime="2022-08-27T15:31:48.000Z" title="發表於 2022-08-27 23:31:48">2022-08-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/18/%E3%80%90watevrCTF%202019%E3%80%91esreveR/" title="【watevrCTF 2019】esreveR WriteUp"><img src="/2022/08/18/%E3%80%90watevrCTF%202019%E3%80%91esreveR/Untitled5.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【watevrCTF 2019】esreveR WriteUp"/></a><div class="content"><a class="title" href="/2022/08/18/%E3%80%90watevrCTF%202019%E3%80%91esreveR/" title="【watevrCTF 2019】esreveR WriteUp">【watevrCTF 2019】esreveR WriteUp</a><time datetime="2022-08-18T15:19:48.000Z" title="發表於 2022-08-18 23:19:48">2022-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/15/%E3%80%90FlareOn4%E3%80%91greek_to_me/" title="【FlareOn4】greek_to_me WriteUp"><img src="/2022/08/15/%E3%80%90FlareOn4%E3%80%91greek_to_me/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【FlareOn4】greek_to_me WriteUp"/></a><div class="content"><a class="title" href="/2022/08/15/%E3%80%90FlareOn4%E3%80%91greek_to_me/" title="【FlareOn4】greek_to_me WriteUp">【FlareOn4】greek_to_me WriteUp</a><time datetime="2022-08-15T06:17:48.000Z" title="發表於 2022-08-15 14:17:48">2022-08-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By NgIokWeng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '213c1281d4936c27991d',
+      clientSecret: 'e52f4c4e54b9993a1226672a59463577a9fd73cd',
+      repo: 'ngiokweng.github.io',
+      owner: 'ngiokweng',
+      admin: ['ngiokweng'],
+      id: '20ef372ac568e08100ac4376034f736a',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
