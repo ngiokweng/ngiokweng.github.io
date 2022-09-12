@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://ngiokweng.github.io/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/</loc>
-    
-    <lastmod>2022-09-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ngiokweng.github.io/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/</loc>
     
     <lastmod>2022-08-28</lastmod>
@@ -137,6 +128,13 @@
 
   
   <url>
+    <loc>https://ngiokweng.github.io/tags/OllyDbg/</loc>
+    <lastmod>2022-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ngiokweng.github.io/tags/Reverse/</loc>
     <lastmod>2022-09-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -158,13 +156,6 @@
   </url>
   
   <url>
-    <loc>https://ngiokweng.github.io/tags/OllyDbg/</loc>
-    <lastmod>2022-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ngiokweng.github.io/tags/%E7%AD%94%E6%A1%88/</loc>
     <lastmod>2022-09-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -174,14 +165,14 @@
 
   
   <url>
-    <loc>https://ngiokweng.github.io/categories/CTF/</loc>
+    <loc>https://ngiokweng.github.io/categories/%E9%80%86%E5%90%91%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2022-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ngiokweng.github.io/categories/%E9%80%86%E5%90%91%E5%B7%A5%E5%85%B7/</loc>
+    <loc>https://ngiokweng.github.io/categories/CTF/</loc>
     <lastmod>2022-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
