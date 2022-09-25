@@ -1,0 +1,271 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【NewStarCTF】逆向—week1 | NgIokWeng's Blog</title><meta name="keywords" content="CTF,NewStarCTF,逆向,WriteUp"><meta name="author" content="NgIokWeng"><meta name="copyright" content="NgIokWeng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="NewStarCTF 逆向部分 第一周的WriteUp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NewStarCTF】逆向—week1">
+<meta property="og:url" content="https://ngiokweng.github.io/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/index.html">
+<meta property="og:site_name" content="NgIokWeng&#39;s Blog">
+<meta property="og:description" content="NewStarCTF 逆向部分 第一周的WriteUp">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://ngiokweng.github.io/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled1.png">
+<meta property="article:published_time" content="2022-09-25T13:08:30.000Z">
+<meta property="article:modified_time" content="2022-09-25T13:10:08.742Z">
+<meta property="article:author" content="NgIokWeng">
+<meta property="article:tag" content="Reverse">
+<meta property="article:tag" content="WriteUp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ngiokweng.github.io/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled1.png"><link rel="shortcut icon" href="/myImg/blogIcon.png"><link rel="canonical" href="https://ngiokweng.github.io/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="google-site-verification" content="iO5LJpaf7bluC9CxlRdPhowI-XL-OzJ-X6ixOkO3cuk"/><meta name="baidu-site-verification" content="code-ZZyU1mBcxX"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【NewStarCTF】逆向—week1',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-25 21:10:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/myCustom.css"><meta name="generator" content="Hexo 5.4.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">載入中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/myImg/blogIcon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">5</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">2</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled1.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">NgIokWeng's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【NewStarCTF】逆向—week1</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2022-09-25T13:08:30.000Z" title="發表於 2022-09-25 21:08:30">2022-09-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2022-09-25T13:10:08.742Z" title="更新於 2022-09-25 21:10:08">2022-09-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/">CTF</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【NewStarCTF】逆向—week1"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>面向22級新生的題，難度友好，十分適合我這種菜G (￣▽￣)/</p>
+</blockquote>
+<h2 id="Hello-Reverse"><a href="#Hello-Reverse" class="headerlink" title="Hello_Reverse"></a>Hello_Reverse</h2><p>在main函數找到flag的一部分，然後按<code>shift+f12</code>找到另一部分</p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled.png" alt="Untitled"></p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled1.png" alt="Untitled"></p>
+<h2 id="Baby-Re"><a href="#Baby-Re" class="headerlink" title="Baby_Re"></a>Baby_Re</h2><h3 id="解法1"><a href="#解法1" class="headerlink" title="解法1"></a>解法1</h3><p>先對用戶輸入進行異或加密，然後調用<code>compare(s)</code>函數進行比較</p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled2.png" alt="Untitled"></p>
+<p>進入<code>compare</code>函數，發現只是一個直接比較</p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled3.png" alt="Untitled"></p>
+<p>雙擊<code>final</code>可以看到密文，但其中4個字節的數據被交叉引用過，疑似被修改過，按<code>x</code>跟過去看看</p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled4.png" alt="Untitled"></p>
+<p>發現它們被以下函數修改，而<code>FunctionName</code>這函數的調用時機在<code>main</code>之前</p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled5.png" alt="Untitled"></p>
+<p>IDA導出數據的技巧：選中所需數據，按<code>shift+e</code></p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled6.png" alt="Untitled"></p>
+<p>編寫腳本解flag</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">char</span> <span class="keyword">final</span>[] =</span><br><span class="line">	&#123;</span><br><span class="line">	  <span class="number">0x66</span>, <span class="number">0x6D</span>, <span class="number">0x63</span>, <span class="number">0x64</span>, <span class="number">0x7F</span>, <span class="number">0x56</span>, <span class="number">54</span>, <span class="number">0x6A</span>, <span class="number">0x6D</span>, <span class="number">0x7D</span>,</span><br><span class="line">	  <span class="number">0x62</span>, <span class="number">58</span>, <span class="number">0x62</span>, <span class="number">0x6A</span>, <span class="number">0x51</span>, <span class="number">0x7D</span>, <span class="number">0x65</span>, <span class="number">0x7F</span>, <span class="number">0x4D</span>, <span class="number">0x71</span>,</span><br><span class="line">	  <span class="number">0x71</span>, <span class="number">0x73</span>, <span class="number">38</span>, <span class="number">0x65</span>, <span class="number">0x7D</span>, <span class="number">0x46</span>, <span class="number">0x77</span>, <span class="number">0x7A</span>, <span class="number">0x75</span>, <span class="number">0x73</span>,</span><br><span class="line">	  <span class="number">63</span>, <span class="number">0x62</span></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;</span><br><span class="line">		cout &lt;&lt; (<span class="type">char</span>)(<span class="keyword">final</span>[i] ^ i);</span><br><span class="line">	&#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法2-懶人法"><a href="#解法2-懶人法" class="headerlink" title="解法2(懶人法)"></a>解法2(懶人法)</h3><p>使用<code>angr</code>讓它自己跑出來</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> angr</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">is_good</span>(<span class="params">state</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">b&#x27;Well done! You find the secret!&#x27;</span> <span class="keyword">in</span> state.posix.dumps(<span class="number">1</span>)  <span class="comment"># state.posix.dumps(1)代表輸出，若輸出中包含&#x27;Well done! You find the secret!&#x27;即代表是我的目的地</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">is_bad</span>(<span class="params">state</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">b&#x27;The flag is wrong! Maybe something run before main&#x27;</span> <span class="keyword">in</span> state.posix.dumps(<span class="number">1</span>)  <span class="comment"># state.posix.dumps(1)代表輸出，若輸出中包含&#x27;The flag is wrong! Maybe something run before main&#x27;即代表要避開的地方</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>(<span class="params">argv</span>):</span><br><span class="line">    bin_path = argv[<span class="number">1</span>] <span class="comment"># argv[1]是調用.py文件時傳入的參數，即【python3 mySolve.py xxx】中的xxx</span></span><br><span class="line">    p = angr.Project(bin_path)</span><br><span class="line"></span><br><span class="line">    init_state = p.factory.entry_state()</span><br><span class="line">    sm = p.factory.simulation_manager(init_state,veritesting = <span class="literal">True</span>)</span><br><span class="line">    sm.explore(find = is_good, avoid = is_bad) <span class="comment">#除了傳入地址外，也能以這種方式來判斷</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> sm.found: <span class="comment">#當sm.found不為空時</span></span><br><span class="line">        found_state = sm.found[<span class="number">0</span>]</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Solution: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(found_state.posix.dumps(<span class="number">0</span>)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main(sys.argv)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled7.png" alt="Untitled"></p>
+<h2 id="EasyRe"><a href="#EasyRe" class="headerlink" title="EasyRe"></a>EasyRe</h2><p>將<code>easyre.exe</code>拉入IDA，發現加密函數在<code>enc.dll</code>中</p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled8.png" alt="Untitled"></p>
+<ul>
+<li>將<code>enc.dll</code>拉入IDA，並找到<code>encode_0</code>函數</li>
+<li>可以看到base64加密的特徵，然後返回了<code>sub_18001132A(a2)</code>，進入該函數查看</li>
+</ul>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled9.png" alt="Untitled"></p>
+<p>是個異或加密</p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled10.png" alt="Untitled"></p>
+<p>所以該題的<strong>加密流程</strong>如下，只要逆向解密就能得到flag：</p>
+<ol>
+<li>base64加密</li>
+<li>異或加密</li>
+</ol>
+<p>先解密【異或加密】那部分，腳本如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string str = <span class="string">&quot;Reverse&quot;</span>;</span><br><span class="line">    <span class="type">char</span> <span class="keyword">final</span>[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">memset</span>(<span class="keyword">final</span>, <span class="number">0</span>, <span class="built_in">sizeof</span>(<span class="keyword">final</span>));</span><br><span class="line">    <span class="built_in">memset</span>(<span class="keyword">final</span>, <span class="number">8</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">2</span>] = <span class="number">14</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">3</span>] = <span class="number">13</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">4</span>] = <span class="number">40</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">5</span>] = <span class="number">64</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">6</span>] = <span class="number">17</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">7</span>] = <span class="number">17</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">8</span>] = <span class="number">60</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">9</span>] = <span class="number">46</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">10</span>] = <span class="number">43</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">11</span>] = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">12</span>] = <span class="number">61</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">13</span>] = <span class="number">15</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">15</span>] = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">16</span>] = <span class="number">59</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">17</span>] = <span class="number">61</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">18</span>] = <span class="number">60</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">19</span>] = <span class="number">21</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">20</span>] = <span class="number">40</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">21</span>] = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">22</span>] = <span class="number">80</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">23</span>] = <span class="number">70</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">24</span>] = <span class="number">63</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">25</span>] = <span class="number">42</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">26</span>] = <span class="number">57</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">27</span>] = <span class="number">9</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">28</span>] = <span class="number">49</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">29</span>] = <span class="number">86</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">30</span>] = <span class="number">0x24</span>;</span><br><span class="line">    <span class="keyword">final</span>[<span class="number">31</span>] = <span class="number">0x1C</span>;</span><br><span class="line">    <span class="built_in">strncpy</span>(&amp;<span class="keyword">final</span>[<span class="number">32</span>], <span class="string">&quot;?$P&lt;,%#K&quot;</span>, <span class="number">8</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;<span class="number">40</span>; ++i) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span>[i] ^= str[i % str.<span class="built_in">length</span>()];</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; <span class="keyword">final</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>將上方得到的字串進行<strong>base64解密</strong>，即可得到<strong>flag</strong>( 網站：<a target="_blank" rel="noopener" href="http://www.hiencode.com/base64.html">http://www.hiencode.com/base64.html</a> )</p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled11.png" alt="Untitled"></p>
+<h2 id="Pyre"><a href="#Pyre" class="headerlink" title="Pyre"></a>Pyre</h2><ul>
+<li>看到是python程序，直接逆向比較難，通常要將<code>.exe</code>→<code>.py</code>，詳細做法可參考<a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-264287.htm#msg_header_h2_1">這篇文章</a></li>
+<li>在這簡單地說說大致做法：<ol>
+<li>使用<a target="_blank" rel="noopener" href="https://github.com/extremecoders-re/pyinstxtractor">pyinstxtractor.py</a>將<code>.exe</code>→<code>.pyc</code></li>
+<li><code>.pyc</code>文件修復，( 下圖是修復好的版本 ) <img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled12.png" alt="Untitled"></li>
+<li>將<code>.pyc</code>→<code>.py</code>，( <a target="_blank" rel="noopener" href="https://tool.lu/pyc/">線上工具</a> )</li>
+</ol>
+</li>
+</ul>
+<p>然後可以在.py文件中看到加密邏輯，直接寫腳本解flag即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span> = <span class="string">&#x27;REla&#123;PSF!!fg&#125;!Y_SN_1_0U&#x27;</span></span><br><span class="line">flag = <span class="number">23</span>*[<span class="number">0</span>]</span><br><span class="line">table = [<span class="number">7</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">13</span>, <span class="number">16</span>, <span class="number">20</span>, <span class="number">21</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">22</span>, <span class="number">19</span>, <span class="number">6</span>, <span class="number">12</span>, <span class="number">11</span>, <span class="number">18</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">14</span>, <span class="number">17</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">23</span>):</span><br><span class="line">    flag[table[i]] = <span class="built_in">str</span>[i]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">23</span>):</span><br><span class="line">    <span class="built_in">print</span>(flag[i],end=<span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="艾克体悟题"><a href="#艾克体悟题" class="headerlink" title="艾克体悟题"></a>艾克体悟题</h2><p>apk逆向，在模擬器打開後提示如下信息，不知道什麼意思，拉入<code>jadx</code>( apk逆向工具 )繼續分析</p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled13.png" alt="Untitled"></p>
+<p>看到flag在另一個Activity中，結合上圖可知，需要讓apk啟動<code>FlagActivity</code>( 默認是啟動<code>MainActivity</code> )，要實現這個動作需要用到<code>adb</code></p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled14.png" alt="Untitled"></p>
+<p>可參考以下文章來連接<code>adb</code> ( <strong>target：雷電模擬器</strong> )</p>
+<ol>
+<li><strong><strong><a target="_blank" rel="noopener" href="https://www.ldmnq.com/forum/32.html">【雷神命令】常用adb命令整理贴</a></strong></strong></li>
+<li><strong><strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_64094652/article/details/126032471">adb 出现 adb.exe: more than one device/emulator 解决方法</a></strong></strong></li>
+</ol>
+<p><strong>連接adb後</strong>，輸入<code>adb.exe shell am start -D -n com.droidlearn.activity_travel/.FlagActivity</code>，即可進入<code>FlagActivity</code></p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled15.png" alt="Untitled"></p>
+<p>使用模擬器的自動點擊功能點擊10000次後就可得到flag</p>
+<p><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/flag.png" alt="flag.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">NgIokWeng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章連結: </span><span class="post-copyright-info"><a href="https://ngiokweng.github.io/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/">https://ngiokweng.github.io/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版權聲明: </span><span class="post-copyright-info">本部落格所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 許可協議。轉載請註明來自 <a href="https://ngiokweng.github.io" target="_blank">NgIokWeng's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Reverse/">Reverse</a><a class="post-meta__tags" href="/tags/WriteUp/">WriteUp</a></div><div class="post_share"><div class="social-share" data-image="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/"><img class="next-cover" src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【CSAW CTF Qualification Round 2022】逆向---部分WriteUp</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相關推薦</span></div><div class="relatedPosts-list"><div><a href="/2022/02/23/ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020-usualCrypt-WriteUp/" title="ACTF新生赛2020-usualCrypt WriteUp"><img class="cover" src="/2022/02/23/ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020-usualCrypt-WriteUp/hack.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-23</div><div class="title">ACTF新生赛2020-usualCrypt WriteUp</div></div></a></div><div><a href="/2022/02/26/%E3%80%90CTF%E3%80%91%E4%B8%80%E9%81%93%E7%B0%A1%E5%96%AE%E7%9A%84%E8%8A%B1%E6%8C%87%E4%BB%A4/" title="【CTF】一道簡單的花指令"><img class="cover" src="/2022/02/26/%E3%80%90CTF%E3%80%91%E4%B8%80%E9%81%93%E7%B0%A1%E5%96%AE%E7%9A%84%E8%8A%B1%E6%8C%87%E4%BB%A4/2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-26</div><div class="title">【CTF】一道簡單的花指令</div></div></a></div><div><a href="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/" title="【FlareOn2】YUSoMeta WriteUp"><img class="cover" src="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/Untitled1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-28</div><div class="title">【FlareOn2】YUSoMeta WriteUp</div></div></a></div><div><a href="/2022/08/15/%E3%80%90FlareOn4%E3%80%91greek_to_me/" title="【FlareOn4】greek_to_me WriteUp"><img class="cover" src="/2022/08/15/%E3%80%90FlareOn4%E3%80%91greek_to_me/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-15</div><div class="title">【FlareOn4】greek_to_me WriteUp</div></div></a></div><div><a href="/2022/04/10/%E3%80%90FlareOn1%E3%80%91Bob-Doge-WriteUp/" title="【FlareOn1】Bob Doge WriteUp"><img class="cover" src="/2022/04/10/%E3%80%90FlareOn1%E3%80%91Bob-Doge-WriteUp/3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-10</div><div class="title">【FlareOn1】Bob Doge WriteUp</div></div></a></div><div><a href="/2022/02/26/%E3%80%90HDCTF2019%E3%80%91Maze-WriteUp/" title="【HDCTF2019】Maze WriteUp"><img class="cover" src="/2022/02/26/%E3%80%90HDCTF2019%E3%80%91Maze-WriteUp/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-26</div><div class="title">【HDCTF2019】Maze WriteUp</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/myImg/blogIcon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">NgIokWeng</div><div class="author-info__description">如果你對目前擁有的一切覺得不滿，等到你擁有更多時，也不見得會快樂</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">5</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">2</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ngiokweng/"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hello-Reverse"><span class="toc-number">1.</span> <span class="toc-text">Hello_Reverse</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Baby-Re"><span class="toc-number">2.</span> <span class="toc-text">Baby_Re</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%B3%951"><span class="toc-number">2.1.</span> <span class="toc-text">解法1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%B3%952-%E6%87%B6%E4%BA%BA%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">解法2(懶人法)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EasyRe"><span class="toc-number">3.</span> <span class="toc-text">EasyRe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pyre"><span class="toc-number">4.</span> <span class="toc-text">Pyre</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%89%BE%E5%85%8B%E4%BD%93%E6%82%9F%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">艾克体悟题</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/" title="【NewStarCTF】逆向—week1"><img src="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/Untitled1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【NewStarCTF】逆向—week1"/></a><div class="content"><a class="title" href="/2022/09/25/%E3%80%90NewStarCTF%E3%80%91%E9%80%86%E5%90%91%E2%80%94week1%20d4cab77dc7254210a14a237d5eb18717/" title="【NewStarCTF】逆向—week1">【NewStarCTF】逆向—week1</a><time datetime="2022-09-25T13:08:30.000Z" title="發表於 2022-09-25 21:08:30">2022-09-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/" title="【CSAW CTF Qualification Round 2022】逆向---部分WriteUp"><img src="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/Untitled1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【CSAW CTF Qualification Round 2022】逆向---部分WriteUp"/></a><div class="content"><a class="title" href="/2022/09/12/%E3%80%90CSAW%20CTF%20Qualification%20Round%202022%E3%80%91%E9%80%86%E5%90%91%E9%83%A8%E5%88%86/" title="【CSAW CTF Qualification Round 2022】逆向---部分WriteUp">【CSAW CTF Qualification Round 2022】逆向---部分WriteUp</a><time datetime="2022-09-11T16:00:30.000Z" title="發表於 2022-09-12 00:00:30">2022-09-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/" title="【FlareOn2】YUSoMeta WriteUp"><img src="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/Untitled1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【FlareOn2】YUSoMeta WriteUp"/></a><div class="content"><a class="title" href="/2022/08/28/%E3%80%90FlareOn2%E3%80%91YUSoMeta/" title="【FlareOn2】YUSoMeta WriteUp">【FlareOn2】YUSoMeta WriteUp</a><time datetime="2022-08-28T13:18:30.000Z" title="發表於 2022-08-28 21:18:30">2022-08-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/27/OD%E6%8F%92%E4%BB%B6%E2%80%94%E2%80%94VS2019%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E8%A8%AD%E7%BD%AE%20fee51e09422b43e4a51413b61ca1d9d9/" title="OD插件——VS2019開發環境設置"><img src="/2022/08/27/OD%E6%8F%92%E4%BB%B6%E2%80%94%E2%80%94VS2019%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E8%A8%AD%E7%BD%AE%20fee51e09422b43e4a51413b61ca1d9d9/a.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OD插件——VS2019開發環境設置"/></a><div class="content"><a class="title" href="/2022/08/27/OD%E6%8F%92%E4%BB%B6%E2%80%94%E2%80%94VS2019%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E8%A8%AD%E7%BD%AE%20fee51e09422b43e4a51413b61ca1d9d9/" title="OD插件——VS2019開發環境設置">OD插件——VS2019開發環境設置</a><time datetime="2022-08-27T15:31:48.000Z" title="發表於 2022-08-27 23:31:48">2022-08-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/18/%E3%80%90watevrCTF%202019%E3%80%91esreveR/" title="【watevrCTF 2019】esreveR WriteUp"><img src="/2022/08/18/%E3%80%90watevrCTF%202019%E3%80%91esreveR/Untitled5.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【watevrCTF 2019】esreveR WriteUp"/></a><div class="content"><a class="title" href="/2022/08/18/%E3%80%90watevrCTF%202019%E3%80%91esreveR/" title="【watevrCTF 2019】esreveR WriteUp">【watevrCTF 2019】esreveR WriteUp</a><time datetime="2022-08-18T15:19:48.000Z" title="發表於 2022-08-18 23:19:48">2022-08-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By NgIokWeng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '213c1281d4936c27991d',
+      clientSecret: 'e52f4c4e54b9993a1226672a59463577a9fd73cd',
+      repo: 'ngiokweng.github.io',
+      owner: 'ngiokweng',
+      admin: ['ngiokweng'],
+      id: '5f87e6fab9db7353567f88c839115550',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
