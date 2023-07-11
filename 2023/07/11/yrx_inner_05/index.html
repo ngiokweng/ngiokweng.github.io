@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【js逆向】yrx內部平台第5題 | NgIokWeng's Blog</title><meta name="keywords" content="js逆向,Python,逆向,爬蟲"><meta name="author" content="NgIokWeng"><meta name="copyright" content="NgIokWeng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="js逆向 yrx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【js逆向】yrx內部平台第5題">
+<meta property="og:url" content="https://ngiokweng.github.io/2023/07/11/yrx_inner_05/index.html">
+<meta property="og:site_name" content="NgIokWeng&#39;s Blog">
+<meta property="og:description" content="js逆向 yrx">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://ngiokweng.github.io/2023/07/11/yrx_inner_05/Untitled1.png">
+<meta property="article:published_time" content="2023-07-11T14:11:12.000Z">
+<meta property="article:modified_time" content="2023-07-11T14:13:22.258Z">
+<meta property="article:author" content="NgIokWeng">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="爬蟲">
+<meta property="article:tag" content="js逆向">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ngiokweng.github.io/2023/07/11/yrx_inner_05/Untitled1.png"><link rel="shortcut icon" href="/myImg/blogIcon.png"><link rel="canonical" href="https://ngiokweng.github.io/2023/07/11/yrx_inner_05/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="google-site-verification" content="iO5LJpaf7bluC9CxlRdPhowI-XL-OzJ-X6ixOkO3cuk"/><meta name="baidu-site-verification" content="code-ZZyU1mBcxX"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【js逆向】yrx內部平台第5題',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-11 22:13:22'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/myCustom.css"><meta name="generator" content="Hexo 5.4.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">載入中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/myImg/blogIcon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">8</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">4</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2023/07/11/yrx_inner_05/Untitled1.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">NgIokWeng's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【js逆向】yrx內部平台第5題</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2023-07-11T14:11:12.000Z" title="發表於 2023-07-11 22:11:12">2023-07-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2023-07-11T14:13:22.258Z" title="更新於 2023-07-11 22:13:22">2023-07-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/js%E9%80%86%E5%90%91/">js逆向</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【js逆向】yrx內部平台第5題"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="無限debugger"><a href="#無限debugger" class="headerlink" title="無限debugger"></a>無限debugger</h2><p>這題有個無限debugger，用下面這個腳本暫時過一過，能分析頁面邏輯就行</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Func</span> = <span class="title class_">Function</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Function</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable language_">arguments</span>[<span class="number">0</span>].<span class="title function_">indexOf</span>(<span class="string">&#x27;debugger&#x27;</span>)!=-<span class="number">1</span>)<span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>)&#123;&#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Func</span>.<span class="title function_">apply</span>(<span class="variable language_">this</span>,<span class="variable language_">arguments</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="定位加密函數"><a href="#定位加密函數" class="headerlink" title="定位加密函數"></a>定位加密函數</h2><ul>
+<li>通過hook <code>XMLHttpRequest.prototype.open</code>，找到加密參數的位置</li>
+<li>然後會跟到<code>_yrxyA$</code>這個函數，接下來就是要想辦法將它扣出來了</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">_yrxyA$</span>(<span class="params">_yrx7jl, _yrxcze</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> _yrx7jl !== _yrxQ9C[<span class="number">6</span>])</span><br><span class="line">                _yrx7jl += <span class="string">&#x27;&#x27;</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (_yrxrqQ) &#123;</span><br><span class="line">            <span class="keyword">return</span> _yrx7jl</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!(_yrxCJw &amp; <span class="number">1024</span>)) &#123;</span><br><span class="line">            _yrx7jl = <span class="title function_">_yrxR2F</span>(_yrx7jl)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> _yrx$Kn = <span class="title function_">_yrxtSa</span>(_yrx7jl);</span><br><span class="line">        <span class="keyword">if</span> (_yrx$Kn === <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> _yrx7jl</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (_yrx$Kn.<span class="property">_yrxKni</span> &gt; <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="title function_">_yrxtY2</span>(_yrx$Kn)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> _yrxmEu = <span class="title function_">_yrxWKg</span>(<span class="title function_">_yrxyHJ</span>(<span class="title function_">_yrx5XG</span>(_yrx$Kn.<span class="property">_yrx2ad</span> + _yrx$Kn.<span class="property">_yrxAmM</span>)));</span><br><span class="line">        <span class="keyword">var</span> _yrx7jl = _yrx$Kn.<span class="property">_yrxCiX</span> + _yrx$Kn.<span class="property">_yrxAmM</span>;</span><br><span class="line">        <span class="keyword">if</span> (_yrx$Kn.<span class="property">_yrxAmM</span> === <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">            _yrx7jl = _yrx7jl + <span class="string">&#x27;?&#x27;</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            _yrx7jl = _yrx7jl + <span class="string">&#x27;&amp;&#x27;</span>;</span><br><span class="line">        <span class="keyword">var</span> _yrx2LR = _yrx$Kn.<span class="property">_yrxiv8</span> + _yrx7jl;</span><br><span class="line">        _yrx2LR += <span class="title function_">_yrxBXT</span>(<span class="number">779</span>, _yrx$Kn.<span class="property">_yrxQZs</span>, _yrxmEu, _yrxcze);</span><br><span class="line">        _yrx2LR += _yrx$Kn.<span class="property">_yrxcFt</span>;</span><br><span class="line">        <span class="keyword">return</span> _yrx2LR</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="補環境"><a href="#補環境" class="headerlink" title="補環境"></a>補環境</h2><p>我比較懶，是直接把全部代碼扣下來，然後再補環境，具體思路&amp;內容大概如下：</p>
+<ul>
+<li>補環境時如果遇到代碼報錯 / 某些值不知怎麼來的，這時可以先基本判斷一下這些代碼有無用</li>
+<li>若覺得無用，可以找到函數調用的源頭，將函數調用的入口注釋掉( 同樣要留下記號 )</li>
+<li>遇到某些值不知怎麼來的時候，可以先與網頁的進行對比，若不變就可將值固定</li>
+<li>有個地方會取<code>meta</code>標籤的<code>content</code>屬性，而這個值可以固定，改一改代碼將這個固定的值直接返回就可以</li>
+</ul>
+<p><strong>總而言之，遇到問題先用最簡單的方法處理一次，報錯再說~</strong></p>
+<h3 id="動態參數分析"><a href="#動態參數分析" class="headerlink" title="動態參數分析"></a>動態參數分析</h3><ul>
+<li>這時補好的環境還不能用，因為有幾個值是動態變化的</li>
+<li>然後就只能慢慢一步一步地跟，看看哪裡不一樣了</li>
+<li>最終會找到以下這個函數，它有兩處地方會改變，分別是<code>1689054205</code>和<code>&#39;F&#39; + &#39;g&#39; + &#39;D&#39; + &#39;d&#39;</code></li>
+<li><code>_yrxCxm</code>就是<code>window</code>，而<code>_yrxCxm[&#39;F&#39; + &#39;g&#39; + &#39;D&#39; + &#39;d&#39;]</code>這個值是由這個接口<code>/api/challenge5</code>返回的( 第1次請求這個接口不需要任何的加密函數，可以直接返回結果 )</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">_yrxVhD</span>(<span class="params">_yrxtJ1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1689054205</span> + _yrxCxm[<span class="string">&#x27;F&#x27;</span> + <span class="string">&#x27;g&#x27;</span> + <span class="string">&#x27;D&#x27;</span> + <span class="string">&#x27;d&#x27;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="動態參數處理"><a href="#動態參數處理" class="headerlink" title="動態參數處理"></a>動態參數處理</h3><ul>
+<li>這時要做的就只剩下兩件事：<ol>
+<li>找到上述代碼的生成邏輯</li>
+<li>將動態變化的值，<code>replace</code>到我補好的環境中</li>
+</ol>
+</li>
+<li>由於在以下這個地方時，<code>XMLHttpRequest.prototype.open</code>就已經被重寫了，因此我的想法是從這點入手，找到重寫<code>XMLHttpRequest.prototype.open</code>的地方，從而找到一切</li>
+</ul>
+<p><img src="/2023/07/11/yrx_inner_05/Untitled.png" alt="Untitled"></p>
+<ul>
+<li>我的做法是在”合適”的地方hook，這樣只要<code>XMLHttpRequest.prototype.open</code>被重寫時就能立刻定位到  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> _val = <span class="title class_">XMLHttpRequest</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">open</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="title class_">XMLHttpRequest</span>.<span class="property"><span class="keyword">prototype</span></span>,<span class="string">&quot;open&quot;</span>,&#123;</span><br><span class="line">    <span class="attr">get</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;getting&quot;</span>,_val)</span><br><span class="line">        <span class="keyword">return</span> _val;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">set</span>:<span class="keyword">function</span>(<span class="params">val</span>) &#123;</span><br><span class="line">        <span class="keyword">debugger</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;setting&quot;</span>,val)</span><br><span class="line">        _val = val;</span><br><span class="line">        <span class="keyword">return</span> val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li>最終成功被我定位到代碼生成的地方</li>
+<li><code>$_ts[yuanrenxue_166(&#39;70&#39;, &#39;\x5e\x34\x24\x4d&#39;)]</code>是由<code>/challenge/5/rsnkw2ksph</code>返回的密文</li>
+<li><code>yuanrenxue_59</code>在這段代碼上方的某處，每次都會變</li>
+<li><code>yuanrenxue_18</code> 就是最終解密後的代碼  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> yuanrenxue_229 = <span class="number">0x0</span>; yuanrenxue_229 &lt; $_ts[<span class="title function_">yuanrenxue_166</span>(<span class="string">&#x27;70&#x27;</span>, <span class="string">&#x27;\x5e\x34\x24\x4d&#x27;</span>)][<span class="title function_">yuanrenxue_166</span>(<span class="string">&#x27;71&#x27;</span>, <span class="string">&#x27;\x32\x4c\x76\x4e&#x27;</span>)]; yuanrenxue_229++) &#123;</span><br><span class="line">    yuanrenxue_36 += <span class="title class_">String</span>[<span class="title function_">yuanrenxue_166</span>(<span class="string">&#x27;72&#x27;</span>, <span class="string">&#x27;\x70\x71\x4d\x73&#x27;</span>)]($_ts[<span class="title function_">yuanrenxue_166</span>(<span class="string">&#x27;73&#x27;</span>, <span class="string">&#x27;\x73\x36\x5a\x49&#x27;</span>)][yuanrenxue_229][<span class="title function_">yuanrenxue_166</span>(<span class="string">&#x27;74&#x27;</span>, <span class="string">&#x27;\x32\x73\x64\x45&#x27;</span>)]() - yuanrenxue_229 % yuanrenxue_59 - <span class="number">0x32</span>)</span><br><span class="line">&#125;</span><br><span class="line">yuanrenxue_18 = <span class="title function_">atob</span>(yuanrenxue_36);</span><br></pre></td></tr></table></figure>
+</li>
+<li>上述這段代碼可以用python重寫一下  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">decode</span>(<span class="params">enc,sub_num</span>):</span><br><span class="line">    yuanrenxue_36 = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> yuanrenxue_229 <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(enc)):</span><br><span class="line">        yuanrenxue_36 += <span class="built_in">chr</span>(<span class="built_in">ord</span>(enc[yuanrenxue_229]) - yuanrenxue_229 % sub_num - <span class="number">0x32</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> base64.b64decode(yuanrenxue_36)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>最後順一下邏輯，就基本能出結果了~</p>
+<p><img src="/2023/07/11/yrx_inner_05/Untitled1.png" alt="Untitled"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">NgIokWeng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章連結: </span><span class="post-copyright-info"><a href="https://ngiokweng.github.io/2023/07/11/yrx_inner_05/">https://ngiokweng.github.io/2023/07/11/yrx_inner_05/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版權聲明: </span><span class="post-copyright-info">本部落格所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 許可協議。轉載請註明來自 <a href="https://ngiokweng.github.io" target="_blank">NgIokWeng's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/%E7%88%AC%E8%9F%B2/">爬蟲</a><a class="post-meta__tags" href="/tags/js%E9%80%86%E5%90%91/">js逆向</a></div><div class="post_share"><div class="social-share" data-image="/2023/07/11/yrx_inner_05/Untitled1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/03/11/%E5%8C%97%E4%BA%AC%E7%A9%BA%E6%B0%A3%E8%B3%AA%E9%87%8F%E6%8C%87%E6%95%B8/"><img class="next-cover" src="/2023/03/11/%E5%8C%97%E4%BA%AC%E7%A9%BA%E6%B0%A3%E8%B3%AA%E9%87%8F%E6%8C%87%E6%95%B8/Untitled.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【js逆向】某空氣質量網</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相關推薦</span></div><div class="relatedPosts-list"><div><a href="/2022/12/26/Python%E7%88%AC%E5%8F%96%E7%B6%B2%E6%98%93%E4%BA%91%E8%A9%95%E8%AB%96/" title="Python爬取網易云評論"><img class="cover" src="/2022/12/26/Python%E7%88%AC%E5%8F%96%E7%B6%B2%E6%98%93%E4%BA%91%E8%A9%95%E8%AB%96/Untitled1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-26</div><div class="title">Python爬取網易云評論</div></div></a></div><div><a href="/2023/03/11/%E5%8C%97%E4%BA%AC%E7%A9%BA%E6%B0%A3%E8%B3%AA%E9%87%8F%E6%8C%87%E6%95%B8/" title="【js逆向】某空氣質量網"><img class="cover" src="/2023/03/11/%E5%8C%97%E4%BA%AC%E7%A9%BA%E6%B0%A3%E8%B3%AA%E9%87%8F%E6%8C%87%E6%95%B8/Untitled.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-11</div><div class="title">【js逆向】某空氣質量網</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/myImg/blogIcon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">NgIokWeng</div><div class="author-info__description">如果你對目前擁有的一切覺得不滿，等到你擁有更多時，也不見得會快樂</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">8</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">4</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ngiokweng/"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%84%A1%E9%99%90debugger"><span class="toc-number">1.</span> <span class="toc-text">無限debugger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D%E5%8A%A0%E5%AF%86%E5%87%BD%E6%95%B8"><span class="toc-number">2.</span> <span class="toc-text">定位加密函數</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%9C%E7%92%B0%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">補環境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8B%95%E6%85%8B%E5%8F%83%E6%95%B8%E5%88%86%E6%9E%90"><span class="toc-number">3.1.</span> <span class="toc-text">動態參數分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8B%95%E6%85%8B%E5%8F%83%E6%95%B8%E8%99%95%E7%90%86"><span class="toc-number">3.2.</span> <span class="toc-text">動態參數處理</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/07/11/yrx_inner_05/" title="【js逆向】yrx內部平台第5題"><img src="/2023/07/11/yrx_inner_05/Untitled1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【js逆向】yrx內部平台第5題"/></a><div class="content"><a class="title" href="/2023/07/11/yrx_inner_05/" title="【js逆向】yrx內部平台第5題">【js逆向】yrx內部平台第5題</a><time datetime="2023-07-11T14:11:12.000Z" title="發表於 2023-07-11 22:11:12">2023-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/11/%E5%8C%97%E4%BA%AC%E7%A9%BA%E6%B0%A3%E8%B3%AA%E9%87%8F%E6%8C%87%E6%95%B8/" title="【js逆向】某空氣質量網"><img src="/2023/03/11/%E5%8C%97%E4%BA%AC%E7%A9%BA%E6%B0%A3%E8%B3%AA%E9%87%8F%E6%8C%87%E6%95%B8/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【js逆向】某空氣質量網"/></a><div class="content"><a class="title" href="/2023/03/11/%E5%8C%97%E4%BA%AC%E7%A9%BA%E6%B0%A3%E8%B3%AA%E9%87%8F%E6%8C%87%E6%95%B8/" title="【js逆向】某空氣質量網">【js逆向】某空氣質量網</a><time datetime="2023-03-11T03:21:12.000Z" title="發表於 2023-03-11 11:21:12">2023-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/02/%E3%80%90HGAME2023%E3%80%91week2-VidarCamera/" title="【HGAME2023】week2-VidarCamera"><img src="/2023/02/02/%E3%80%90HGAME2023%E3%80%91week2-VidarCamera/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【HGAME2023】week2-VidarCamera"/></a><div class="content"><a class="title" href="/2023/02/02/%E3%80%90HGAME2023%E3%80%91week2-VidarCamera/" title="【HGAME2023】week2-VidarCamera">【HGAME2023】week2-VidarCamera</a><time datetime="2023-02-02T03:21:12.000Z" title="發表於 2023-02-02 11:21:12">2023-02-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/02/%E3%80%90HGAME2023%E3%80%91week3-kunmusic/" title="【HGAME2023】week3-kunmusic"><img src="/2023/02/02/%E3%80%90HGAME2023%E3%80%91week3-kunmusic/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【HGAME2023】week3-kunmusic"/></a><div class="content"><a class="title" href="/2023/02/02/%E3%80%90HGAME2023%E3%80%91week3-kunmusic/" title="【HGAME2023】week3-kunmusic">【HGAME2023】week3-kunmusic</a><time datetime="2023-02-02T03:21:12.000Z" title="發表於 2023-02-02 11:21:12">2023-02-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/19/%E3%80%90FlareOn2%E3%80%91sender/" title="【FlareOn2】sender"><img src="/2023/01/19/%E3%80%90FlareOn2%E3%80%91sender/Untitled1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【FlareOn2】sender"/></a><div class="content"><a class="title" href="/2023/01/19/%E3%80%90FlareOn2%E3%80%91sender/" title="【FlareOn2】sender">【FlareOn2】sender</a><time datetime="2023-01-19T03:55:12.000Z" title="發表於 2023-01-19 11:55:12">2023-01-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By NgIokWeng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '213c1281d4936c27991d',
+      clientSecret: 'e52f4c4e54b9993a1226672a59463577a9fd73cd',
+      repo: 'ngiokweng.github.io',
+      owner: 'ngiokweng',
+      admin: ['ngiokweng'],
+      id: '7a3dee680038050d063f39c2daa5160b',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
