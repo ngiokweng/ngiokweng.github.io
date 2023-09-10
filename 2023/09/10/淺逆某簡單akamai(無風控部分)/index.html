@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>淺逆某簡單akamai(無風控部分) | NgIokWeng's Blog</title><meta name="keywords" content="Web逆向"><meta name="author" content="NgIokWeng"><meta name="copyright" content="NgIokWeng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="淺逆某簡單akamai(無風控部分)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="淺逆某簡單akamai(無風控部分)">
+<meta property="og:url" content="https://ngiokweng.github.io/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/index.html">
+<meta property="og:site_name" content="NgIokWeng&#39;s Blog">
+<meta property="og:description" content="淺逆某簡單akamai(無風控部分)">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://ngiokweng.github.io/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled.png">
+<meta property="article:published_time" content="2023-09-10T05:10:52.000Z">
+<meta property="article:modified_time" content="2023-09-10T05:10:44.896Z">
+<meta property="article:author" content="NgIokWeng">
+<meta property="article:tag" content="Web逆向">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ngiokweng.github.io/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled.png"><link rel="shortcut icon" href="/myImg/blogIcon.png"><link rel="canonical" href="https://ngiokweng.github.io/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="google-site-verification" content="iO5LJpaf7bluC9CxlRdPhowI-XL-OzJ-X6ixOkO3cuk"/><meta name="baidu-site-verification" content="code-ZZyU1mBcxX"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '淺逆某簡單akamai(無風控部分)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-09-10 13:10:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/myCustom.css"><meta name="generator" content="Hexo 5.4.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">載入中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/myImg/blogIcon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">9</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">NgIokWeng's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">淺逆某簡單akamai(無風控部分)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2023-09-10T05:10:52.000Z" title="發表於 2023-09-10 13:10:52">2023-09-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2023-09-10T05:10:44.896Z" title="更新於 2023-09-10 13:10:44">2023-09-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Web%E9%80%86%E5%90%91/">Web逆向</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="淺逆某簡單akamai(無風控部分)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>Target：aHR0cHM6Ly93d3cuZGlnaWtleS5jbi8=</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文參考了以下文章和視頻，感謝大佬們的分享</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1d14y1h7P9/?spm_id_from=333.880.my_history.page.click&vd_source=999a37555f77c5995df6185262c99be3">https://www.bilibili.com/video/BV1d14y1h7P9/?spm_id_from=333.880.my_history.page.click&amp;vd_source=999a37555f77c5995df6185262c99be3</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/huangch135/article/details/130227868">https://blog.csdn.net/huangch135/article/details/130227868</a></li>
+</ul>
+<h2 id="基本分析"><a href="#基本分析" class="headerlink" title="基本分析"></a>基本分析</h2><ul>
+<li>akm的目標是cookie裡的<code>_abck</code>這個值</li>
+<li>當<code>_abck</code>裡的<code>~-1~</code>變成<code>~0~</code>時就算是有效</li>
+</ul>
+<p><img src="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled.png" alt="Untitled"></p>
+<ul>
+<li>上述的<code>_abck</code>由類似<code>1diI9T-4eS/HLR5GidZ/XH/YkNYXGfprwm5/cEMlcQYB/TnUjFxE/ZWTA</code>這樣的接口返回</li>
+<li>本網站屬於簡單類型的akm，因此在風控正常的情況下，第1個接口返回的cookie就已經是有效的</li>
+<li>而對於其他難度的akm，則可能需要在第3次後，什至是在某些事件觸發後，才會返回有效的cookie</li>
+</ul>
+<p><img src="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled1.png" alt="Untitled"></p>
+<h2 id="第一次請求"><a href="#第一次請求" class="headerlink" title="第一次請求"></a>第一次請求</h2><ul>
+<li>從上述接口的堆棧，直接可以跟到這裡</li>
+<li><code>Txf</code>就是接口請求的data，而其主要部分是<code>wFf</code></li>
+</ul>
+<p><img src="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled2.png" alt="Untitled"></p>
+<ul>
+<li>向上跟來到這裡，可以看到<code>ATf</code>明顯是一個環境檢測的數據，裡面保存著當前的各種環境</li>
+</ul>
+<p><img src="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled3.png" alt="Untitled"></p>
+<ul>
+<li><code>ATf</code>環境數組具體如下，基本上每個都是環境檢測點，建議與自己的環境逐一對比</li>
+<li>個人認為最主要關注的部分就是這個環境數組，只要這裡能基本一致應該就可以</li>
+<li>後續的各種操作生成最終的<code>sensor_data</code>應該就沒有那麼重要了</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    <span class="comment">// 0: 固定值</span></span><br><span class="line">		<span class="string">&quot;-100&quot;</span>,</span><br><span class="line">		<span class="comment">// 1: 檢測了ua、window的一些屬性、自動化工具、Screen等</span></span><br><span class="line">    <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36,uaend,12147,20030107,zh-TW,Gecko,5,0,0,0,416881,0,1920,1040,1920,1080,1920,931,1920,,cpen:0,i1:0,dm:0,cwen:0,non:1,opc:0,fc:0,sc:0,wrc:1,isc:0,vib:1,bat:1,x11:0,x12:1,8105,0.419036962209,847157403808.5,0,0,loc:&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-105&quot;</span>,</span><br><span class="line">		<span class="comment">// 3: 檢測頁面input標籤的一些屬性</span></span><br><span class="line">    <span class="string">&quot;0,0,0,0,-1,888,0;0,-1,0,0,-1,-1,0;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-108&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-101&quot;</span>,</span><br><span class="line">    <span class="string">&quot;do_en,dm_en,t_en&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-110&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-117&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-109&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-102&quot;</span>,</span><br><span class="line">    <span class="string">&quot;0,0,0,0,-1,888,0;0,-1,0,0,-1,-1,0;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-111&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-114&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-103&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-106&quot;</span>,</span><br><span class="line">    <span class="string">&quot;0,0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-115&quot;</span>,</span><br><span class="line">		<span class="comment">// 25: 這裡取了cookie,因此在第1次請求前,要先對頁面進行1次請求,從而獲取頁面返回的cookie</span></span><br><span class="line">    <span class="string">&quot;1,32,32,0,0,0,0,4,0,1694314807617,-999999,18125,0,0,3020,0,0,9,0,0,358649D9584BA9DE6AC5E821111B1819~-1~YAAQlBw/O81cCUmKAQAAp5YAfQrZ/fMGHSsNvloPsNh/jJ7n4XXUu6UHaA1RaKg7vczO18ylrCuF4EySkQ3t6XoOAwTJCNmqoAqcXdQ/SZ+evRynCqtSq6EuenlcO2+KeqRaC+qovOMyuUxX9M9KTDNvmU9zsmQ5fjaayV9pHOO9+O2lsN/Ihl4ODUU4/IAUv8ty5/TFT7VqCAGJmdhArhi5Bhq+y8It62D6MSGnZ4JGyz7m6TuNGx/1Wnfa03pi8u7hobrX3k7+NtZO7SrCMkQpynfZ62rz72edbZ22awJ/hOwJw+lI7KR87dOso7hrZQ5oR6Ke7vzXF0rgyETCaO+nUqVo5HsJ1ePZzv90oRMhA8SqiE4KBC8DhHYv4cxd6WyAKdqQIwHXGg==~-1~-1~-1,36758,-1,-1,30261693,PiZtE,12969,86,0,0,0,,,&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-112&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://www.digikey.cn/&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-119&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-122&quot;</span>,</span><br><span class="line">		<span class="comment">// 31: 檢則了一堆東西，如 XPathResult</span></span><br><span class="line">    <span class="string">&quot;0,0,0,0,1,0,0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-123&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-124&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-126&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-127&quot;</span>,</span><br><span class="line">    <span class="number">8</span>,</span><br><span class="line">    <span class="string">&quot;-128&quot;</span>,</span><br><span class="line">    <span class="string">&quot;,,&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-131&quot;</span>,</span><br><span class="line">    <span class="string">&quot;,,,&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-132&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-133&quot;</span>,</span><br><span class="line">    <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-70&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-80&quot;</span>,</span><br><span class="line">    <span class="string">&quot;94&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-90&quot;</span>,</span><br><span class="line">    <span class="string">&quot;MjZkMjI4NjYzZjEzYTg4NTkyYTEyZDE2Y2Y5NTg3Y2FhYjAzODhiMjYyZDZkOWYxMjZlZDYyZjkzMzNhY2E5NA==|-1|3,1,53,178,165&quot;</span>,</span><br><span class="line">    <span class="string">&quot;-116&quot;</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="string">&quot;-129&quot;</span>,</span><br><span class="line">    <span class="string">&quot;,,0,,,,,,,,&quot;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>技巧：以上述環境數組的第3個索引為例，要如何找到其生成位置？</p>
+<ol>
+<li>先確認它是哪個變量</li>
+</ol>
+<p><img src="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled4.png" alt="Untitled"></p>
+<ol>
+<li>通過search快速定位</li>
+</ol>
+<p><img src="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled5.png" alt="Untitled"></p>
+<ol>
+<li>發現是一堆switch…case，這時可以在每個<code>return</code>處下斷點</li>
+</ol>
+<p><img src="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled6.png" alt="Untitled"></p>
+<ol>
+<li>可以看到是由<code>UJ.apply(undefined, tJ)</code>返回，進入該函數，裡面就是對input的檢測</li>
+</ol>
+<p><img src="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled7.png" alt="Untitled"></p>
+<ul>
+<li><code>sensor_data</code>這個請求參數可以在<code>XMLHttpRequest.prototype.send</code>裡接收</li>
+</ul>
+<h2 id="第二、三次請求"><a href="#第二、三次請求" class="headerlink" title="第二、三次請求"></a>第二、三次請求</h2><p>雖然只需第一次請求就夠，但第二、三次請求的一些檢測點還挺有意思的，簡單地說一下吧</p>
+<ul>
+<li>在第2次請求時，在以下代碼的位置檢測了<code>font</code>相關的東西，例如不同<code>fontSize</code>和<code>fontFamily</code>的<code>offsetHeight</code>和<code>offsetWeight</code></li>
+<li>應付的方法也很簡單，就是根據<code>fontSize</code>和<code>fontFamily</code>構建字典一一對應就可以了</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Mtf</span> = cE.<span class="title function_">slice</span>();</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Gtf</span> = ff[hf.<span class="title function_">dL</span>(pPf, <span class="title class_">Pp</span>)][hf.<span class="title function_">pf</span>(cG, <span class="title class_">Tk</span>, cc, tLf)](hf.<span class="title function_">qs</span>(<span class="variable constant_">VG</span>, <span class="variable constant_">YI</span>));</span><br><span class="line"><span class="title class_">Gtf</span>[hf.<span class="title function_">bP</span>(<span class="variable constant_">FC</span>, dc, jH, <span class="title class_">Qp</span>)] = hf.<span class="title class_">Us</span>(<span class="variable constant_">V4</span>, <span class="variable constant_">AB</span>),</span><br><span class="line"><span class="title class_">Gtf</span>[hf.<span class="property">kS</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [<span class="title class_">Ab</span>, vI])][hf.<span class="title function_">rs</span>(cR, <span class="variable constant_">DI</span>)] = hf.<span class="title function_">lP</span>(<span class="variable constant_">GM</span>, mC, <span class="title class_">Lp</span>, <span class="title class_">Kp</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Ctf</span> = hf.<span class="title function_">jL</span>(qW, <span class="variable constant_">K1</span>, <span class="variable constant_">HG</span>, <span class="variable constant_">FC</span>)</span><br><span class="line">  , ktf = (ff[hf.<span class="property">dL</span>.<span class="title function_">call</span>(<span class="literal">null</span>, pPf, <span class="title class_">Pp</span>)][hf.<span class="title function_">ss</span>(<span class="title class_">WQf</span>, <span class="variable constant_">OI</span>)](hf.<span class="property">Ys</span>.<span class="title function_">call</span>(<span class="literal">null</span>, xLf, <span class="variable constant_">XI</span>)))[<span class="variable constant_">K1</span>]</span><br><span class="line">  , ctf = ktf</span><br><span class="line">  , <span class="title class_">Jtf</span> = <span class="title function_">SE</span>(<span class="variable constant_">Q1</span>);</span><br><span class="line"><span class="title function_">jE</span>(ff[hf.<span class="title function_">jf</span>(<span class="variable constant_">MM</span>, <span class="variable constant_">N1</span>, gR, fC)][hf.<span class="title function_">vs</span>(<span class="title class_">Ec</span>, mI)], <span class="variable constant_">K1</span>) &amp;&amp; <span class="title function_">dE</span>(<span class="variable constant_">K1</span>)() &amp;&amp; (<span class="title class_">Jtf</span> = <span class="title function_">SE</span>(<span class="variable constant_">K1</span>)),</span><br><span class="line"><span class="title class_">Jtf</span> &amp;&amp; ((ctf = ff[hf.<span class="property">dL</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [pPf, <span class="title class_">Pp</span>])][hf.<span class="title function_">pf</span>(cG, <span class="title class_">Tk</span>, vp, tLf)](hf.<span class="title class_">Ds</span>(p3f, nI)))[hf.<span class="property">kS</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="title class_">Ab</span>, vI)][hf.<span class="property">Os</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="variable constant_">JH</span>, fPf)] = hf.<span class="property">Xs</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="title class_">TLf</span>, <span class="variable constant_">HG</span>, pc, B3f),</span><br><span class="line">ktf[hf.<span class="property">bF</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [jC, <span class="variable constant_">ZI</span>])](ctf)),</span><br><span class="line">ctf ? (<span class="title class_">Etf</span>[hf.<span class="title class_">Cz</span>(lLf, gI)](<span class="keyword">function</span>(<span class="params">wtf</span>) &#123;</span><br><span class="line">    cE.<span class="title function_">push</span>(nR);</span><br><span class="line">    <span class="title class_">Gtf</span>[hf.<span class="title function_">kS</span>(<span class="title class_">Ab</span>, <span class="variable constant_">II</span>)][hf.<span class="property">ms</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [<span class="variable constant_">IV</span>, qG, hJ, <span class="title class_">Ahf</span>])] = wtf,</span><br><span class="line">    ctf[hf.<span class="title function_">bF</span>(jC, jI)](<span class="title class_">Gtf</span>),</span><br><span class="line">    <span class="title class_">Ctf</span> += (((hf.<span class="title function_">jL</span>(f3f, zJ, <span class="variable constant_">TJ</span>, <span class="variable constant_">FC</span>))[hf.<span class="property">LS</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="title class_">Sp</span>, <span class="title function_">SE</span>(<span class="title function_">SE</span>([])), <span class="title function_">SE</span>(<span class="title function_">SE</span>(&#123;&#125;)), w3f)](wtf, hf.<span class="property">tL</span>.<span class="title function_">call</span>(<span class="literal">null</span>, nJ, <span class="variable constant_">QA</span>)))[hf.<span class="title function_">LS</span>(<span class="title class_">Sp</span>, dPf, <span class="variable constant_">JH</span>, w3f)](<span class="title class_">Gtf</span>[hf.<span class="title function_">ns</span>(<span class="variable constant_">UC</span>, hLf)], hf.<span class="title function_">BK</span>(<span class="title class_">NLf</span>, <span class="title class_">PLf</span>)))[hf.<span class="title function_">LS</span>(<span class="title class_">Sp</span>, kG, xb, w3f)](<span class="title class_">Gtf</span>[hf.<span class="title class_">Zs</span>(fR, xl)], hf.<span class="property">mS</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [vG, <span class="title class_">QLf</span>])),</span><br><span class="line">    ctf[hf.<span class="title function_">SP</span>(<span class="variable constant_">OG</span>, xb, <span class="variable constant_">QB</span>, gJ)](<span class="title class_">Gtf</span>);</span><br><span class="line">    cE.<span class="title function_">pop</span>();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>同樣是第2次請求，這裡先執行了<code>Object.keys(iframe.contentWindow)</code>的操作，然後用<code>JSON.stringify</code>將其變成字符串，最後再將它用某種算法加密了一下，然後加上<code>Object.keys</code>返回的數組的長度</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E7f = ff[hf.<span class="property">tK</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="variable constant_">ZG</span>, <span class="title class_">Ux</span>)][hf.<span class="property">PF</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="title class_">Cb</span>, <span class="variable constant_">QE</span>)](d7f);</span><br><span class="line">I7f = ((hf.<span class="property">jL</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="title class_">YPf</span>, <span class="title class_">Lhf</span>, <span class="variable constant_">OG</span>, <span class="variable constant_">FC</span>))[hf.<span class="property">LS</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="title class_">Ml</span>, <span class="variable constant_">JJ</span>, <span class="variable constant_">OG</span>, w3f)](<span class="title class_">Atf</span>(<span class="title class_">MSf</span>(ff</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第3次請求，這裡是一些CSS的檢測，有興趣可以自己來看看</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> [hf.<span class="property">I5</span>.<span class="title function_">call</span>(<span class="literal">null</span>, fW, <span class="variable constant_">Z9</span>), hf.<span class="property">j5</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [ng, dk, <span class="title function_">SE</span>(<span class="variable constant_">K1</span>), <span class="variable constant_">NG</span>]), hf.<span class="title function_">N5</span>(<span class="title class_">Lk</span>, <span class="variable constant_">AI</span>), hf.<span class="title function_">x5</span>(kV, g9), hf.<span class="title function_">d5</span>(jC, fj), hf.<span class="property">E5</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [kV, <span class="title class_">Qn</span>]), hf.<span class="title function_">M5</span>(bH, <span class="variable constant_">HV</span>), hf.<span class="title function_">G5</span>(<span class="title class_">Ehf</span>, khf, hB, c4), hf.<span class="title function_">C5</span>(<span class="title class_">Chf</span>, <span class="variable constant_">I9</span>), hf.<span class="property">k5</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [vE, j9]), hf.<span class="title function_">c5</span>(<span class="title class_">Yb</span>, <span class="variable constant_">N9</span>), hf.<span class="title function_">J5</span>(cR, x9), hf.<span class="title function_">B5</span>(xJ, <span class="title class_">Uk</span>, <span class="title class_">Wk</span>, kc), hf.<span class="property">w5</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="title class_">Cw</span>, qV), hf.<span class="title function_">A5</span>(<span class="variable constant_">NR</span>, <span class="title class_">Rp</span>, cG, <span class="title class_">Xp</span>), hf.<span class="title function_">b5</span>(<span class="variable constant_">F9</span>, pc, <span class="title function_">SE</span>(<span class="variable constant_">K1</span>), <span class="title class_">Ec</span>), hf.<span class="title function_">l5</span>(<span class="title class_">Qb</span>, d9), hf.<span class="property">p5</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [nB, <span class="variable constant_">E9</span>]), hf.<span class="property">V5</span>.<span class="title function_">call</span>(<span class="literal">null</span>, gLf, <span class="variable constant_">M9</span>), hf.<span class="title function_">R5</span>(r3f, <span class="variable constant_">G9</span>), hf.<span class="property">H5</span>.<span class="title function_">call</span>(<span class="literal">null</span>, xC, <span class="variable constant_">C9</span>), hf.<span class="title function_">W5</span>(k9, <span class="variable constant_">NH</span>, cG, <span class="title class_">Pw</span>), hf.<span class="title function_">f0</span>(c9, hJ, <span class="title function_">SE</span>(<span class="variable constant_">K1</span>), hJ), hf.<span class="title function_">dQ</span>(<span class="title class_">Bk</span>, <span class="title class_">Ip</span>, pG, <span class="title class_">Eb</span>), hf.<span class="title function_">EQ</span>(<span class="variable constant_">EJ</span>, <span class="variable constant_">CM</span>, <span class="variable constant_">DC</span>, <span class="variable constant_">MG</span>), hf.<span class="title function_">h0</span>(<span class="title class_">Khf</span>, <span class="title function_">SE</span>(<span class="variable constant_">K1</span>), <span class="title class_">Ec</span>, rhf), hf.<span class="title function_">P0</span>(<span class="variable constant_">JH</span>, <span class="variable constant_">CO</span>), hf.<span class="property">Q0</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="title class_">Cc</span>, <span class="variable constant_">J9</span>), hf.<span class="property">MQ</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [<span class="variable constant_">FC</span>, <span class="variable constant_">ZG</span>, pJ, rV]), hf.<span class="title function_">L0</span>(pc, ng), hf.<span class="property">K0</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="variable constant_">OG</span>, <span class="variable constant_">B9</span>), hf.<span class="property">S0</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [kb, <span class="title class_">Fl</span>]), hf.<span class="property">T0</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="variable constant_">EG</span>, <span class="title class_">Il</span>), hf.<span class="title function_">GQ</span>(<span class="variable constant_">EG</span>, <span class="variable constant_">VW</span>, <span class="title class_">Vc</span>, <span class="title class_">TPf</span>), hf.<span class="title function_">z0</span>(<span class="variable constant_">AA</span>, w9), hf.<span class="property">t0</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [hV, <span class="variable constant_">DC</span>, <span class="variable constant_">JB</span>, xw]), hf.<span class="property">F0</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="title class_">Pff</span>, <span class="variable constant_">A9</span>), hf.<span class="title function_">q0</span>(<span class="title class_">Rff</span>, <span class="title function_">SE</span>(<span class="title function_">SE</span>(<span class="variable constant_">K1</span>)), <span class="title function_">SE</span>(<span class="variable constant_">K1</span>), rW)][hf.<span class="title class_">Cz</span>(lLf, b9)](<span class="keyword">function</span>(<span class="params">HYf</span>) &#123;</span><br><span class="line">    cE.<span class="title function_">push</span>(<span class="title class_">Ol</span>);</span><br><span class="line">    pYf[hf.<span class="property">kS</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="title class_">Ab</span>, l9)] = (hf.<span class="title function_">U0</span>(gLf, p9))[hf.<span class="title function_">LS</span>(<span class="variable constant_">OC</span>, <span class="variable constant_">WJ</span>, q3f, w3f)](<span class="title class_">HYf</span>, hf.<span class="title function_">r0</span>(<span class="title class_">Dff</span>, U3f, <span class="title function_">SE</span>(<span class="variable constant_">K1</span>), <span class="variable constant_">CM</span>));</span><br><span class="line">    <span class="keyword">var</span> <span class="title class_">WYf</span> = (ff[hf.<span class="property">s0</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [<span class="title class_">Off</span>, t3f, <span class="title function_">SE</span>(<span class="title function_">SE</span>(<span class="variable constant_">K1</span>)), <span class="title class_">Bk</span>])](pYf))[hf.<span class="property">Y0</span>.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="title class_">Tk</span>, <span class="variable constant_">V9</span>)];</span><br><span class="line">    <span class="title class_">VYf</span>[<span class="title class_">HYf</span>] = <span class="title class_">WYf</span>;</span><br><span class="line">    cE.<span class="title function_">pop</span>();</span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+
+<p>注：三次請求的觸發條件分別是</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 最開始的自執行函數</span><br><span class="line"><span class="number">2.</span> <span class="built_in">setTimeout</span>-&gt; delay為<span class="number">500</span>的函數</span><br><span class="line"><span class="number">3.</span> <span class="built_in">setTimeout</span>-&gt; delay為<span class="number">1000</span>的函數</span><br></pre></td></tr></table></figure>
+
+<h2 id="實際請求"><a href="#實際請求" class="headerlink" title="實際請求"></a>實際請求</h2><p>總體流程如下：</p>
+<p><img src="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled8.png" alt="Untitled"></p>
+<p>效果如下：</p>
+<ul>
+<li><code>curl_cffi</code>是用來躲避TLS檢測，注意*<code>impersonate*=&quot;chrome101&quot;</code>要與js環境的ua和appVersion一致</li>
+<li><code>node_vm2</code>太經典了就不多說啦</li>
+</ul>
+<p><img src="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled9.png" alt="Untitled"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">NgIokWeng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章連結: </span><span class="post-copyright-info"><a href="https://ngiokweng.github.io/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/">https://ngiokweng.github.io/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版權聲明: </span><span class="post-copyright-info">本部落格所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 許可協議。轉載請註明來自 <a href="https://ngiokweng.github.io" target="_blank">NgIokWeng's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Web%E9%80%86%E5%90%91/">Web逆向</a></div><div class="post_share"><div class="social-share" data-image="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/09/03/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AD%AF(%E8%B7%9F%E5%80%BC%E9%9B%A3+vmp)/"><img class="next-cover" src="/2023/09/03/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AD%AF(%E8%B7%9F%E5%80%BC%E9%9B%A3+vmp)/Untitled.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">某度翻譯逆向分析</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相關推薦</span></div><div class="relatedPosts-list"><div><a href="/2023/09/03/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AD%AF(%E8%B7%9F%E5%80%BC%E9%9B%A3+vmp)/" title="某度翻譯逆向分析"><img class="cover" src="/2023/09/03/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AD%AF(%E8%B7%9F%E5%80%BC%E9%9B%A3+vmp)/Untitled.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-03</div><div class="title">某度翻譯逆向分析</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/myImg/blogIcon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">NgIokWeng</div><div class="author-info__description">如果你對目前擁有的一切覺得不滿，等到你擁有更多時，也不見得會快樂</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">9</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ngiokweng/"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">基本分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%AB%8B%E6%B1%82"><span class="toc-number">3.</span> <span class="toc-text">第一次請求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E3%80%81%E4%B8%89%E6%AC%A1%E8%AB%8B%E6%B1%82"><span class="toc-number">4.</span> <span class="toc-text">第二、三次請求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E9%9A%9B%E8%AB%8B%E6%B1%82"><span class="toc-number">5.</span> <span class="toc-text">實際請求</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/" title="淺逆某簡單akamai(無風控部分)"><img src="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="淺逆某簡單akamai(無風控部分)"/></a><div class="content"><a class="title" href="/2023/09/10/%E6%B7%BA%E9%80%86%E6%9F%90%E7%B0%A1%E5%96%AEakamai(%E7%84%A1%E9%A2%A8%E6%8E%A7%E9%83%A8%E5%88%86)/" title="淺逆某簡單akamai(無風控部分)">淺逆某簡單akamai(無風控部分)</a><time datetime="2023-09-10T05:10:52.000Z" title="發表於 2023-09-10 13:10:52">2023-09-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/03/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AD%AF(%E8%B7%9F%E5%80%BC%E9%9B%A3+vmp)/" title="某度翻譯逆向分析"><img src="/2023/09/03/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AD%AF(%E8%B7%9F%E5%80%BC%E9%9B%A3+vmp)/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="某度翻譯逆向分析"/></a><div class="content"><a class="title" href="/2023/09/03/%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AD%AF(%E8%B7%9F%E5%80%BC%E9%9B%A3+vmp)/" title="某度翻譯逆向分析">某度翻譯逆向分析</a><time datetime="2023-09-03T14:11:23.000Z" title="發表於 2023-09-03 22:11:23">2023-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/11/yrx_inner_05/" title="【js逆向】yrx內部平台第5題"><img src="/2023/07/11/yrx_inner_05/Untitled1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【js逆向】yrx內部平台第5題"/></a><div class="content"><a class="title" href="/2023/07/11/yrx_inner_05/" title="【js逆向】yrx內部平台第5題">【js逆向】yrx內部平台第5題</a><time datetime="2023-07-11T14:11:12.000Z" title="發表於 2023-07-11 22:11:12">2023-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/11/%E5%8C%97%E4%BA%AC%E7%A9%BA%E6%B0%A3%E8%B3%AA%E9%87%8F%E6%8C%87%E6%95%B8/" title="【js逆向】某空氣質量網"><img src="/2023/03/11/%E5%8C%97%E4%BA%AC%E7%A9%BA%E6%B0%A3%E8%B3%AA%E9%87%8F%E6%8C%87%E6%95%B8/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【js逆向】某空氣質量網"/></a><div class="content"><a class="title" href="/2023/03/11/%E5%8C%97%E4%BA%AC%E7%A9%BA%E6%B0%A3%E8%B3%AA%E9%87%8F%E6%8C%87%E6%95%B8/" title="【js逆向】某空氣質量網">【js逆向】某空氣質量網</a><time datetime="2023-03-11T03:21:12.000Z" title="發表於 2023-03-11 11:21:12">2023-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/02/%E3%80%90HGAME2023%E3%80%91week2-VidarCamera/" title="【HGAME2023】week2-VidarCamera"><img src="/2023/02/02/%E3%80%90HGAME2023%E3%80%91week2-VidarCamera/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【HGAME2023】week2-VidarCamera"/></a><div class="content"><a class="title" href="/2023/02/02/%E3%80%90HGAME2023%E3%80%91week2-VidarCamera/" title="【HGAME2023】week2-VidarCamera">【HGAME2023】week2-VidarCamera</a><time datetime="2023-02-02T03:21:12.000Z" title="發表於 2023-02-02 11:21:12">2023-02-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By NgIokWeng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '213c1281d4936c27991d',
+      clientSecret: 'e52f4c4e54b9993a1226672a59463577a9fd73cd',
+      repo: 'ngiokweng.github.io',
+      owner: 'ngiokweng',
+      admin: ['ngiokweng'],
+      id: 'e5f5032b1714d04a9b1a8323106e1f14',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
