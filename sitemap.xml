@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ngiokweng.github.io/2024/02/01/%E3%80%90DASCTF%E5%85%AB%E6%9C%88%E6%8C%91%E6%88%98%E8%B5%9B%E3%80%91apkrev/</loc>
+    
+    <lastmod>2024-02-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ngiokweng.github.io/2023/09/25/%E6%9C%80%E5%B0%8FPE%E6%96%87%E4%BB%B6/</loc>
     
     <lastmod>2023-09-25</lastmod>
@@ -364,14 +373,14 @@
   </url>
   
   <url>
-    <loc>https://ngiokweng.github.io/tags/PE%E6%96%87%E4%BB%B6/</loc>
+    <loc>https://ngiokweng.github.io/tags/Web%E9%80%86%E5%90%91/</loc>
     <lastmod>2024-02-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ngiokweng.github.io/tags/Web%E9%80%86%E5%90%91/</loc>
+    <loc>https://ngiokweng.github.io/tags/PE%E6%96%87%E4%BB%B6/</loc>
     <lastmod>2024-02-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -408,14 +417,14 @@
   </url>
   
   <url>
-    <loc>https://ngiokweng.github.io/categories/PE%E6%96%87%E4%BB%B6/</loc>
+    <loc>https://ngiokweng.github.io/categories/Web%E9%80%86%E5%90%91/</loc>
     <lastmod>2024-02-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ngiokweng.github.io/categories/Web%E9%80%86%E5%90%91/</loc>
+    <loc>https://ngiokweng.github.io/categories/PE%E6%96%87%E4%BB%B6/</loc>
     <lastmod>2024-02-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
