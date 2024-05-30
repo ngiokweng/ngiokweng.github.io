@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>elf文件結構 | NgIokWeng's Blog</title><meta name="keywords" content="elf"><meta name="author" content="NgIokWeng"><meta name="copyright" content="NgIokWeng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="elf 文件結構">
+<meta property="og:type" content="article">
+<meta property="og:title" content="elf文件結構">
+<meta property="og:url" content="https://ngiokweng.github.io/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/index.html">
+<meta property="og:site_name" content="NgIokWeng&#39;s Blog">
+<meta property="og:description" content="elf 文件結構">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://ngiokweng.github.io/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/Untitled.png">
+<meta property="article:published_time" content="2024-05-30T08:46:47.000Z">
+<meta property="article:modified_time" content="2024-05-30T08:46:47.125Z">
+<meta property="article:author" content="NgIokWeng">
+<meta property="article:tag" content="elf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ngiokweng.github.io/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/Untitled.png"><link rel="shortcut icon" href="/myImg/blogIcon.png"><link rel="canonical" href="https://ngiokweng.github.io/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="google-site-verification" content="iO5LJpaf7bluC9CxlRdPhowI-XL-OzJ-X6ixOkO3cuk"/><meta name="baidu-site-verification" content="code-ZZyU1mBcxX"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'elf文件結構',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-30 16:46:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/myCustom.css"><meta name="generator" content="Hexo 5.4.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">載入中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/myImg/blogIcon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">17</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">9</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/Untitled.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">NgIokWeng's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">elf文件結構</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2024-05-30T08:46:47.000Z" title="發表於 2024-05-30 16:46:47">2024-05-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2024-05-30T08:46:47.125Z" title="更新於 2024-05-30 16:46:47">2024-05-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/elf/">elf</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="elf文件結構"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在研究360加固時，發現自己對elf文件完全不理解，於是決定先好好學下elf文件結構。</p>
+<p>本文以AOSP版本<code>Oreo8.1.0_r33</code>作為研究對象，由上到下逐漸解析一個so文件。</p>
+<h2 id="Elf-Header"><a href="#Elf-Header" class="headerlink" title="Elf Header"></a>Elf Header</h2><p>32位elf文件的Elf Header的結構體是<code>Elf32_Ehdr</code>，64位基本一致，除了<code>e_ident[4]</code>。</p>
+<p>同時也列出一些會用到的常量( 宏定義/枚舉值 )如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*=================== art/runtime/elf.h ===================*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Elf32_Ehdr</span> &#123;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span> e_ident[EI_NIDENT]; <span class="comment">// ELF Identification bytes</span></span><br><span class="line">  Elf32_Half    e_type;      <span class="comment">// Type of file (see ET_* below)</span></span><br><span class="line">  Elf32_Half    e_machine;   <span class="comment">// Required architecture for this file (see EM_*)</span></span><br><span class="line">  Elf32_Word    e_version;   <span class="comment">// Must be equal to 1</span></span><br><span class="line">  Elf32_Addr    e_entry;     <span class="comment">// Address to jump to in order to start program</span></span><br><span class="line">  Elf32_Off     e_phoff;     <span class="comment">// Program header table&#x27;s file offset, in bytes</span></span><br><span class="line">  Elf32_Off     e_shoff;     <span class="comment">// Section header table&#x27;s file offset, in bytes</span></span><br><span class="line">  Elf32_Word    e_flags;     <span class="comment">// Processor-specific flags</span></span><br><span class="line">  Elf32_Half    e_ehsize;    <span class="comment">// Size of ELF header, in bytes</span></span><br><span class="line">  Elf32_Half    e_phentsize; <span class="comment">// Size of an entry in the program header table</span></span><br><span class="line">  Elf32_Half    e_phnum;     <span class="comment">// Number of entries in the program header table</span></span><br><span class="line">  Elf32_Half    e_shentsize; <span class="comment">// Size of an entry in the section header table</span></span><br><span class="line">  Elf32_Half    e_shnum;     <span class="comment">// Number of entries in the section header table</span></span><br><span class="line">  Elf32_Half    e_shstrndx;  <span class="comment">// Sect hdr table index of sect name string table</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// e_ident size and indices.</span></span><br><span class="line"><span class="keyword">enum</span> &#123;</span><br><span class="line">  EI_MAG0       = <span class="number">0</span>,          <span class="comment">// File identification index.</span></span><br><span class="line">  EI_MAG1       = <span class="number">1</span>,          <span class="comment">// File identification index.</span></span><br><span class="line">  EI_MAG2       = <span class="number">2</span>,          <span class="comment">// File identification index.</span></span><br><span class="line">  EI_MAG3       = <span class="number">3</span>,          <span class="comment">// File identification index.</span></span><br><span class="line">  EI_CLASS      = <span class="number">4</span>,          <span class="comment">// File class.</span></span><br><span class="line">  EI_DATA       = <span class="number">5</span>,          <span class="comment">// Data encoding.</span></span><br><span class="line">  EI_VERSION    = <span class="number">6</span>,          <span class="comment">// File version.</span></span><br><span class="line">  EI_OSABI      = <span class="number">7</span>,          <span class="comment">// OS/ABI identification.</span></span><br><span class="line">  EI_ABIVERSION = <span class="number">8</span>,          <span class="comment">// ABI version.</span></span><br><span class="line">  EI_PAD        = <span class="number">9</span>,          <span class="comment">// Start of padding bytes.</span></span><br><span class="line">  EI_NIDENT     = <span class="number">16</span>          <span class="comment">// Number of bytes in e_ident.</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// File types</span></span><br><span class="line"><span class="keyword">enum</span> &#123;</span><br><span class="line">  ET_NONE   = <span class="number">0</span>,      <span class="comment">// No file type</span></span><br><span class="line">  ET_REL    = <span class="number">1</span>,      <span class="comment">// Relocatable file</span></span><br><span class="line">  ET_EXEC   = <span class="number">2</span>,      <span class="comment">// Executable file</span></span><br><span class="line">  ET_DYN    = <span class="number">3</span>,      <span class="comment">// Shared object file</span></span><br><span class="line">  ET_CORE   = <span class="number">4</span>,      <span class="comment">// Core file</span></span><br><span class="line">  ET_LOPROC = <span class="number">0xff00</span>, <span class="comment">// Beginning of processor-specific codes</span></span><br><span class="line">  ET_HIPROC = <span class="number">0xffff</span>  <span class="comment">// Processor-specific</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Machine architectures</span></span><br><span class="line"><span class="keyword">enum</span> &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">  EM_AARCH64       = <span class="number">183</span>, <span class="comment">// ARM AArch64</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*=================== toolchain/binutils/binutils-2.25/libiberty/simple-object-elf.c ===================*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ELFCLASSNONE	      0	<span class="comment">/* Invalid class */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ELFCLASS32	      1	<span class="comment">/* 32-bit objects */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ELFCLASS64	      2	<span class="comment">/* 64-bit objects */</span></span></span><br></pre></td></tr></table></figure>
+
+<p>一些個人認為比較重要的字段：</p>
+<ul>
+<li><code>e_ident</code>：長度為<code>EI_NIDENT</code>( 定義為<code>16</code> )，<code>e_ident[0~3]</code>是elf文件的標誌，固定為<code>7F 45 4C 46</code>，第<code>e_ident[4]</code>用來表示該ELF是32位/64位，<code>1</code>是前者<code>2</code>是後者。</li>
+<li><code>e_type</code>：文件類型，取值範圍是<code>ET_</code>開頭的枚舉值，如so文件就是<code>3</code>。</li>
+<li><code>e_machine</code>：該文件所需的架構，取值範圍是EM_開頭的枚舉值，如arm64是<code>183</code>。</li>
+<li><code>e_entry</code>：是一個相對偏移，指向程序的起始地址，對於一個可執行的elf文件來說，它指向<code>start</code>函數的起始地址，而對於so文件來說，它為<code>0</code>。</li>
+<li><code>e_phoff</code>：Program Header Table的偏移。</li>
+<li><code>e_shoff</code>：Section Header Table的偏移。</li>
+<li><code>e_ehsize</code>：Elf Header的大小。</li>
+<li><code>e_phentsize</code>：Program Header Table每個元素的大小。</li>
+<li><code>e_phnum</code>：Program Header Table中元素的數量。</li>
+<li><code>e_shentsize</code>：Section Header Table每個元素的大小。</li>
+<li><code>e_shnum</code>：Section Header Table中元素的數量。</li>
+<li><code>e_shstrndx</code>：是Section Header Table的一個索引值，指向了<code>.shstrtab</code>節區( 這個節區存儲著所有節區的名字，例如<code>.text</code> )在Section Header Table裡的索引值。</li>
+</ul>
+<h2 id="Program-Header"><a href="#Program-Header" class="headerlink" title="Program Header"></a>Program Header</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*=================== art/runtime/elf.h ===================*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Program header for ELF32.</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Elf32_Phdr</span> &#123;</span><br><span class="line">  Elf32_Word p_type;   <span class="comment">// Type of segment</span></span><br><span class="line">  Elf32_Off  p_offset; <span class="comment">// File offset where segment is located, in bytes</span></span><br><span class="line">  Elf32_Addr p_vaddr;  <span class="comment">// Virtual address of beginning of segment</span></span><br><span class="line">  Elf32_Addr p_paddr;  <span class="comment">// Physical address of beginning of segment (OS-specific)</span></span><br><span class="line">  Elf32_Word p_filesz; <span class="comment">// Num. of bytes in file image of segment (may be zero)</span></span><br><span class="line">  Elf32_Word p_memsz;  <span class="comment">// Num. of bytes in mem image of segment (may be zero)</span></span><br><span class="line">  Elf32_Word p_flags;  <span class="comment">// Segment flags</span></span><br><span class="line">  Elf32_Word p_align;  <span class="comment">// Segment alignment constraint</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Segment types.</span></span><br><span class="line"><span class="keyword">enum</span> &#123;</span><br><span class="line">  PT_NULL    = <span class="number">0</span>, <span class="comment">// Unused segment.</span></span><br><span class="line">  PT_LOAD    = <span class="number">1</span>, <span class="comment">// Loadable segment. (該字後表示可以被加載到內存執行的)</span></span><br><span class="line">  PT_DYNAMIC = <span class="number">2</span>, <span class="comment">// Dynamic linking information.</span></span><br><span class="line">  PT_INTERP  = <span class="number">3</span>, <span class="comment">// Interpreter pathname.</span></span><br><span class="line">  PT_NOTE    = <span class="number">4</span>, <span class="comment">// Auxiliary information.</span></span><br><span class="line">  PT_SHLIB   = <span class="number">5</span>, <span class="comment">// Reserved.</span></span><br><span class="line">  PT_PHDR    = <span class="number">6</span>, <span class="comment">// The program header table itself.</span></span><br><span class="line">  PT_TLS     = <span class="number">7</span>, <span class="comment">// The thread-local storage template.</span></span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Segment flag bits.</span></span><br><span class="line"><span class="keyword">enum</span> : <span class="type">unsigned</span> &#123;</span><br><span class="line">  PF_X        = <span class="number">1</span>,         <span class="comment">// Execute</span></span><br><span class="line">  PF_W        = <span class="number">2</span>,         <span class="comment">// Write</span></span><br><span class="line">  PF_R        = <span class="number">4</span>,         <span class="comment">// Read</span></span><br><span class="line">  PF_MASKOS   = <span class="number">0x0ff00000</span>,<span class="comment">// Bits for operating system-specific semantics.</span></span><br><span class="line">  PF_MASKPROC = <span class="number">0xf0000000</span> <span class="comment">// Bits for processor-specific semantics.</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>一些個人認為比較重要的字段：</p>
+<ul>
+<li><code>p_type</code>：當前segment的類型，如<code>PT_LOAD</code>、<code>PT_DYNAMIC</code>。</li>
+<li><code>p_offset</code>：當前segment的文件偏移。</li>
+<li><code>p_vaddr</code>：加載進內存後的虛擬地址。</li>
+<li><code>p_paddr</code>：加載進內存後的實際物理地址。</li>
+<li><code>p_filesz</code>：當前segment在文件中的大小( 單位：byte )。</li>
+<li><code>p_memsz</code>：當前segment在內存中的大小( 單位：byte )。</li>
+<li><code>p_flags</code>：當前段的屬性，如可讀<code>PF_R</code>、可寫<code>PF_X</code> 等等。</li>
+<li><code>p_align</code>：內存對齊的字節數。</li>
+</ul>
+<h3 id="Segment的類型"><a href="#Segment的類型" class="headerlink" title="Segment的類型"></a>Segment的類型</h3><p>記錄一些常見<code>p_type</code></p>
+<p><code>PT_LOAD</code>：一個可執行文件最少要有一個該類型的segment，該類型描述表示當前segment是可裝載的，即當前segment會被裝載或映射到內存中。一段來說elf文件通常會有2個<code>PT_LOAD</code>的segment，分別是存放代碼的<code>text</code>段和存放全局變量和動態鏈接信息的<code>data</code>段。</p>
+<p><code>PT_PHDR</code>：表示program header table本身。</p>
+<p><code>PT_DYNAMIC</code>：該類型的segment header指定動態鏈接的一些信息。</p>
+<h2 id="Section-Header"><a href="#Section-Header" class="headerlink" title="Section Header"></a>Section Header</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*=================== art/runtime/elf.h ===================*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Section header.</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Elf32_Shdr</span> &#123;</span><br><span class="line">  Elf32_Word sh_name;      <span class="comment">// Section name (index into string table)</span></span><br><span class="line">  Elf32_Word sh_type;      <span class="comment">// Section type (SHT_*)</span></span><br><span class="line">  Elf32_Word sh_flags;     <span class="comment">// Section flags (SHF_*)</span></span><br><span class="line">  Elf32_Addr sh_addr;      <span class="comment">// Address where section is to be loaded</span></span><br><span class="line">  Elf32_Off  sh_offset;    <span class="comment">// File offset of section data, in bytes</span></span><br><span class="line">  Elf32_Word sh_size;      <span class="comment">// Size of section, in bytes</span></span><br><span class="line">  Elf32_Word sh_link;      <span class="comment">// Section type-specific header table index link</span></span><br><span class="line">  Elf32_Word sh_info;      <span class="comment">// Section type-specific extra information</span></span><br><span class="line">  Elf32_Word sh_addralign; <span class="comment">// Section address alignment</span></span><br><span class="line">  Elf32_Word sh_entsize;   <span class="comment">// Size of records contained within the section</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Section types.</span></span><br><span class="line"><span class="keyword">enum</span> : <span class="type">unsigned</span> &#123;</span><br><span class="line">  SHT_NULL          = <span class="number">0</span>,  <span class="comment">// No associated section (inactive entry).</span></span><br><span class="line">  SHT_PROGBITS      = <span class="number">1</span>,  <span class="comment">// Program-defined contents.</span></span><br><span class="line">  SHT_SYMTAB        = <span class="number">2</span>,  <span class="comment">// Symbol table.</span></span><br><span class="line">  SHT_STRTAB        = <span class="number">3</span>,  <span class="comment">// String table.</span></span><br><span class="line">  SHT_RELA          = <span class="number">4</span>,  <span class="comment">// Relocation entries; explicit addends.</span></span><br><span class="line">  SHT_HASH          = <span class="number">5</span>,  <span class="comment">// Symbol hash table.</span></span><br><span class="line">  SHT_DYNAMIC       = <span class="number">6</span>,  <span class="comment">// Information for dynamic linking.</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Section flags.</span></span><br><span class="line"><span class="keyword">enum</span> : <span class="type">unsigned</span> &#123;</span><br><span class="line">  <span class="comment">// Section data should be writable during execution.</span></span><br><span class="line">  SHF_WRITE = <span class="number">0x1</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Section occupies memory during program execution.</span></span><br><span class="line">  SHF_ALLOC = <span class="number">0x2</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Section contains executable machine instructions.</span></span><br><span class="line">  SHF_EXECINSTR = <span class="number">0x4</span>,</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一些個人認為比較重要的字段：</p>
+<ul>
+<li><code>sh_name</code>：是<code>shstrtab</code>表( 見Elf Header的<code>e_shstrndx</code>字段 )的一個索引，該索引指向了當前section的名字。</li>
+<li><code>sh_type</code>：當前section的類型，取值範圍是<code>SHT_</code>開頭的枚舉值，如<code>SHT_DYNAMIC</code>代表section與動態鏈接有關。</li>
+<li><code>sh_flags</code>：當前section的屬性，取值範圍是<code>SHF_</code>開頭的枚舉值，如<code>SHF_WRITE</code>代表section在執行過程中應是可寫的。</li>
+<li><code>sh_addr</code>：當前section的加載進內存的地址( 內存偏移 )。</li>
+<li><code>sh_offset</code>：當前section的文件偏移。</li>
+<li><code>sh_size</code>：當前section大小( 單位：byte )。</li>
+<li><code>sh_addralign</code>：內存對齊的字節大小( 某些Section帶有地址對齊約束，例如某個節區保存了一個DWROD，那麼系統必須保證整個節區能夠按雙字對齊。<code>sh_addr%sh_addralign</code>必須為<code>0</code>，目前僅允許取值為0和2的冪次數。數值為<code>0</code>、<code>1</code>表示節區沒有對齊約束 )。</li>
+<li><code>sh_entsize</code>：當前節區中每個項占用的字節數。</li>
+</ul>
+<h2 id="補充：Segment與Section"><a href="#補充：Segment與Section" class="headerlink" title="補充：Segment與Section"></a>補充：Segment與Section</h2><p>參考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiqingwu/p/elf_format_research_01.html">https://www.cnblogs.com/jiqingwu/p/elf_format_research_01.html</a></p>
+<p>ELF全稱是Executable and Linking Format，即可執行和可鏈接的格式，下圖分別是ELF文件的鏈接視圖和執行視圖。</p>
+<p>可以看到，鏈接視圖由Section組成，而執行視圖由Segment組成。對前者來說Program header table( Segment )不是必要的，對後者來說Section header table不是必要的。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44256803/article/details/108359900">鏈接過程</a>：<strong>鏈接器將目標文件中屬性相同的Section合並成一個集合，此集合便稱為Segment</strong></p>
+<p><img src="/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/Untitled.png" alt="Untitled"></p>
+<h2 id="Sections"><a href="#Sections" class="headerlink" title="Sections"></a>Sections</h2><p>記錄幾個比較重要的section，以後有需要再補充😎</p>
+<h3 id="Symbol-Table-symtab"><a href="#Symbol-Table-symtab" class="headerlink" title="Symbol Table ( .symtab )"></a>Symbol Table ( <code>.symtab</code> )</h3><p>Symbol Table是一個特殊的Section( 是名為<code>.symtab</code>的Section Header指向的那個節區 )，它包含了所有的符號信息，<strong>包括已定義的符號和未定義的符號</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*=================== art/runtime/elf.h ===================*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Symbol table entries for ELF32.</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Elf32_Sym</span> &#123;</span><br><span class="line">  Elf32_Word    st_name;  <span class="comment">// Symbol name (index into string table)</span></span><br><span class="line">  Elf32_Addr    st_value; <span class="comment">// Value or address associated with the symbol</span></span><br><span class="line">  Elf32_Word    st_size;  <span class="comment">// Size of the symbol</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span> st_info;  <span class="comment">// Symbol&#x27;s type and binding attributes</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span> st_other; <span class="comment">// Must be zero; reserved</span></span><br><span class="line">  Elf32_Half    st_shndx; <span class="comment">// Which section (header table index) it&#x27;s defined in</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Special section indices.</span></span><br><span class="line"><span class="keyword">enum</span> &#123;</span><br><span class="line">  SHN_UNDEF     = <span class="number">0</span>,      <span class="comment">// Undefined, missing, irrelevant, or meaningless</span></span><br><span class="line">  SHN_LORESERVE = <span class="number">0xff00</span>, <span class="comment">// Lowest reserved index</span></span><br><span class="line">  SHN_LOPROC    = <span class="number">0xff00</span>, <span class="comment">// Lowest processor-specific index</span></span><br><span class="line">  SHN_HIPROC    = <span class="number">0xff1f</span>, <span class="comment">// Highest processor-specific index</span></span><br><span class="line">  SHN_LOOS      = <span class="number">0xff20</span>, <span class="comment">// Lowest operating system-specific index</span></span><br><span class="line">  SHN_HIOS      = <span class="number">0xff3f</span>, <span class="comment">// Highest operating system-specific index</span></span><br><span class="line">  SHN_ABS       = <span class="number">0xfff1</span>, <span class="comment">// Symbol has absolute value; does not need relocation</span></span><br><span class="line">  SHN_COMMON    = <span class="number">0xfff2</span>, <span class="comment">// FORTRAN COMMON or C external global variables</span></span><br><span class="line">  SHN_XINDEX    = <span class="number">0xffff</span>, <span class="comment">// Mark that the index is &gt;= SHN_LORESERVE</span></span><br><span class="line">  SHN_HIRESERVE = <span class="number">0xffff</span>  <span class="comment">// Highest reserved index</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Symbol bindings.</span></span><br><span class="line"><span class="keyword">enum</span> &#123;</span><br><span class="line">  STB_LOCAL = <span class="number">0</span>,   <span class="comment">// Local symbol, not visible outside obj file containing def</span></span><br><span class="line">  STB_GLOBAL = <span class="number">1</span>,  <span class="comment">// Global symbol, visible to all object files being combined</span></span><br><span class="line">  STB_WEAK = <span class="number">2</span>,    <span class="comment">// Weak symbol, like global but lower-precedence</span></span><br><span class="line">  STB_LOOS   = <span class="number">10</span>, <span class="comment">// Lowest operating system-specific binding type</span></span><br><span class="line">  STB_HIOS   = <span class="number">12</span>, <span class="comment">// Highest operating system-specific binding type</span></span><br><span class="line">  STB_LOPROC = <span class="number">13</span>, <span class="comment">// Lowest processor-specific binding type</span></span><br><span class="line">  STB_HIPROC = <span class="number">15</span>  <span class="comment">// Highest processor-specific binding type</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>一些個人認為比較重要的字段：</p>
+<ul>
+<li><code>st_name</code>：<code>.strtab</code>節區( 由Section Header定位到對應節區 )的一個索引值，指向某符號名。</li>
+<li><code>st_value</code>：這個值在不同的上下文中有不同的意義：<ol>
+<li>在可重定位文件中，若符號的<code>st_shndx</code>等於<code>SHN_COMMON</code>，剛<code>st_value</code>表示該符號的對齊字節數。</li>
+<li>在可重定位文件中，若一個符號是已定義時( 何為已定義？後面會給出 )，<code>st_value</code>表示section內的偏移( section由<code>st_shndx</code>指定 )。</li>
+<li>在可執行文件和so文件中，<code>st_value</code>是一個虛擬地址，這時不需要關心<code>st_shndx</code>的值。</li>
+</ol>
+</li>
+<li><code>st_info</code>：符號的綁定屬性，取值範圍是<code>STB_</code>開頭的枚舉值，如<code>STB_LOCAL</code>是局部符號，局部符號就是一種未定義的符號。</li>
+<li><code>st_shndx</code>：當符號已定義時，它代表Section Header Table的某個下標索引，配合<code>st_value</code>定位到對應該符號。</li>
+</ul>
+<p>何為已定義的符號？GPT給出的回答如下，僅供參考：</p>
+<p><img src="/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/Untitled1.png" alt="Untitled"></p>
+<h3 id="dynamic"><a href="#dynamic" class="headerlink" title=".dynamic"></a><strong>.dynamic</strong></h3><p>Section Header Table中名為<code>.dynamic</code>的那項指向的節表，其實是一個<code>Elf32_Dyn</code>數組，32位每個元素占8字節，64位則占16字節，以下列出了32位的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*=================== art/runtime/elf.h ===================*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Dynamic table entry for ELF32.</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Elf32_Dyn</span></span><br><span class="line">&#123;</span><br><span class="line">  Elf32_Sword d_tag;            <span class="comment">// Type of dynamic table entry.</span></span><br><span class="line">  <span class="keyword">union</span></span><br><span class="line">  &#123;</span><br><span class="line">      Elf32_Word d_val;         <span class="comment">// Integer value of entry.</span></span><br><span class="line">      Elf32_Addr d_ptr;         <span class="comment">// Pointer value of entry.</span></span><br><span class="line">  &#125; d_un;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Dynamic table entry tags.</span></span><br><span class="line"><span class="keyword">enum</span> &#123;</span><br><span class="line">  DT_NULL         = <span class="number">0</span>,        <span class="comment">// Marks end of dynamic array.</span></span><br><span class="line">  DT_NEEDED       = <span class="number">1</span>,        <span class="comment">// String table offset of needed library.</span></span><br><span class="line">  DT_PLTRELSZ     = <span class="number">2</span>,        <span class="comment">// Size of relocation entries in PLT.</span></span><br><span class="line">  DT_PLTGOT       = <span class="number">3</span>,        <span class="comment">// Address associated with linkage table.</span></span><br><span class="line">  DT_HASH         = <span class="number">4</span>,        <span class="comment">// Address of symbolic hash table.</span></span><br><span class="line">  DT_STRTAB       = <span class="number">5</span>,        <span class="comment">// Address of dynamic string table.</span></span><br><span class="line">	<span class="comment">// ....</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>字段解析：</p>
+<ul>
+<li><code>d_tag</code>：該字段決定了這個是什麼類別，以及如何解析<code>d_un</code>，取值範圍是<code>DT_</code>開頭的枚舉值。</li>
+<li><code>d_un</code>：根據<code>d_tag</code>決定是使用<code>d_val</code>或<code>d_ptr</code>。</li>
+</ul>
+<p>例子：</p>
+<p>當<code>d_tag</code>為<code>DT_NEEDED</code>時，使用<code>d_un</code>的<code>d_val</code>，而這時<code>d_val</code>代表字符表的下標索引( 這個字符表是由<code>DT_STRTAB</code>確定 )</p>
+<p>其他更多可以參考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter6-42444.html">https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter6-42444.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://ctf-wiki.org/executable/elf/structure/dynamic-sections/">https://ctf-wiki.org/executable/elf/structure/dynamic-sections/</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2216942">https://cloud.tencent.com/developer/article/2216942</a></li>
+</ul>
+<h2 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-272077.htm#msg_header_h1_5">https://bbs.kanxue.com/thread-272077.htm#msg_header_h1_5</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/AndroidBinary/p/15364043.html#213-pt_load%E6%AE%B5">https://www.cnblogs.com/AndroidBinary/p/15364043.html#213-pt_load段</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/astrotycoon/article/details/42042991">https://blog.csdn.net/astrotycoon/article/details/42042991</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bluepuni.com/archives/elf-symbols/#%E7%AC%A6%E5%8F%B7%E7%9A%84%E5%80%BC">https://www.bluepuni.com/archives/elf-symbols/#符号的值</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">NgIokWeng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章連結: </span><span class="post-copyright-info"><a href="https://ngiokweng.github.io/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/">https://ngiokweng.github.io/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版權聲明: </span><span class="post-copyright-info">本部落格所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 許可協議。轉載請註明來自 <a href="https://ngiokweng.github.io" target="_blank">NgIokWeng's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/elf/">elf</a></div><div class="post_share"><div class="social-share" data-image="/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/Untitled.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/05/27/ollvm_bcf_anti/"><img class="next-cover" src="/2024/05/27/ollvm_bcf_anti/Untitled.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ollvm_bcf_anti</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/myImg/blogIcon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">NgIokWeng</div><div class="author-info__description">如果你對目前擁有的一切覺得不滿，等到你擁有更多時，也不見得會快樂</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">17</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">9</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ngiokweng/"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Elf-Header"><span class="toc-number">2.</span> <span class="toc-text">Elf Header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Program-Header"><span class="toc-number">3.</span> <span class="toc-text">Program Header</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Segment%E7%9A%84%E9%A1%9E%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">Segment的類型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Section-Header"><span class="toc-number">4.</span> <span class="toc-text">Section Header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%9C%E5%85%85%EF%BC%9ASegment%E8%88%87Section"><span class="toc-number">5.</span> <span class="toc-text">補充：Segment與Section</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sections"><span class="toc-number">6.</span> <span class="toc-text">Sections</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Symbol-Table-symtab"><span class="toc-number">6.1.</span> <span class="toc-text">Symbol Table ( .symtab )</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dynamic"><span class="toc-number">6.2.</span> <span class="toc-text">.dynamic</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">7.</span> <span class="toc-text">參考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/" title="elf文件結構"><img src="/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="elf文件結構"/></a><div class="content"><a class="title" href="/2024/05/30/elf%E6%96%87%E4%BB%B6%E7%B5%90%E6%A7%8B/" title="elf文件結構">elf文件結構</a><time datetime="2024-05-30T08:46:47.000Z" title="發表於 2024-05-30 16:46:47">2024-05-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/27/ollvm_bcf_anti/" title="ollvm_bcf_anti"><img src="/2024/05/27/ollvm_bcf_anti/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ollvm_bcf_anti"/></a><div class="content"><a class="title" href="/2024/05/27/ollvm_bcf_anti/" title="ollvm_bcf_anti">ollvm_bcf_anti</a><time datetime="2024-05-27T08:45:57.000Z" title="發表於 2024-05-27 16:45:57">2024-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/26/B%E7%AB%99sign%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/" title="B站sign算法分析"><img src="/2024/05/26/B%E7%AB%99sign%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="B站sign算法分析"/></a><div class="content"><a class="title" href="/2024/05/26/B%E7%AB%99sign%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/" title="B站sign算法分析">B站sign算法分析</a><time datetime="2024-05-26T08:40:10.000Z" title="發表於 2024-05-26 16:40:10">2024-05-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/16/%E3%80%90Unity+lua%E6%89%8B%E9%81%8A%E9%80%86%E5%90%91%E3%80%91%E9%81%93%E5%8F%8B%E6%8E%9B%E6%A9%9F%E5%97%8E/" title="【Unity+lua手遊逆向】道友掛機嗎"><img src="/2024/05/16/%E3%80%90Unity+lua%E6%89%8B%E9%81%8A%E9%80%86%E5%90%91%E3%80%91%E9%81%93%E5%8F%8B%E6%8E%9B%E6%A9%9F%E5%97%8E/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Unity+lua手遊逆向】道友掛機嗎"/></a><div class="content"><a class="title" href="/2024/05/16/%E3%80%90Unity+lua%E6%89%8B%E9%81%8A%E9%80%86%E5%90%91%E3%80%91%E9%81%93%E5%8F%8B%E6%8E%9B%E6%A9%9F%E5%97%8E/" title="【Unity+lua手遊逆向】道友掛機嗎">【Unity+lua手遊逆向】道友掛機嗎</a><time datetime="2024-05-16T12:14:47.000Z" title="發表於 2024-05-16 20:14:47">2024-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/13/bilibili(Frida%E6%AA%A2%E6%B8%AC)/" title="bilibili(Frida檢測)"><img src="/2024/05/13/bilibili(Frida%E6%AA%A2%E6%B8%AC)/Untitled.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="bilibili(Frida檢測)"/></a><div class="content"><a class="title" href="/2024/05/13/bilibili(Frida%E6%AA%A2%E6%B8%AC)/" title="bilibili(Frida檢測)">bilibili(Frida檢測)</a><time datetime="2024-05-13T05:40:45.000Z" title="發表於 2024-05-13 13:40:45">2024-05-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By NgIokWeng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '213c1281d4936c27991d',
+      clientSecret: 'e52f4c4e54b9993a1226672a59463577a9fd73cd',
+      repo: 'ngiokweng.github.io',
+      owner: 'ngiokweng',
+      admin: ['ngiokweng'],
+      id: '5006a9181056a40b555528d8df302b5f',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
