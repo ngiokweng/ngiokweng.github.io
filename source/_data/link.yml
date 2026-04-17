@@ -1,0 +1,7 @@
+- class_name: 友情鏈接
+  class_desc: 那些人，那些事
+  link_list:
+    - name: WoaW04
+      link: https://woaw04.github.io/
+      avatar: https://cdn.jsdelivr.net/gh/WoaW04/Picture/image90830939_p2.png
+      descr: CTF，Misc方向的強者
